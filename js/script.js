@@ -40,6 +40,7 @@ async function connectWallet() {
 
     let result = await waitListContract.addMyself();
     console.log(result);
+    checkWaitListed();
   } else {
     console.log("already on waitlist");
   }
