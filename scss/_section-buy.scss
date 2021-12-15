@@ -1,0 +1,77 @@
+.section-buy {
+  padding: 8px 0 250px;
+  @include media-breakpoint-up(md) {
+    padding: 19px 0 310px;
+  }
+  .h3 {
+    font-size: 28px;
+    text-shadow: 10px 14px 20px rgba(0, 0, 0, 0.4);
+    @include media-breakpoint-up(md) {
+      font-size: 50px;
+    }
+  }
+  .buy-list {
+    list-style: none;
+    counter-reset: my-awesome-counter;
+    @include media-breakpoint-up(md) {
+      padding-right: 20px;
+      padding-top: 5px;
+    }
+    .buy-item {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      margin-top: 13px;
+      margin-bottom: 40px;
+      counter-increment: my-awesome-counter;
+
+      @include media-breakpoint-up(md) {
+        margin-top: 48px;
+        margin-bottom: 0;
+        padding: 0 0 0 83px;
+      }
+      &::before {
+        content: counter(my-awesome-counter);
+        font-family: "Fredoka One";
+        font-size: 24px;
+        width: 58px;
+        height: 58px;
+        line-height: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.7);
+        border: 6px solid #f19f3f;
+        box-sizing: border-box;
+        border-radius: 50%;
+        margin: 0 auto 28px;
+        @include media-breakpoint-up(md) {
+          position: absolute;
+          top: -8px;
+          left: -0;
+        }
+      }
+
+      img {
+          width: max-content;
+          max-width: 100%;
+        border-radius: 12px;
+        margin: auto;
+        @include media-breakpoint-up(md) {
+          margin: unset;
+        }
+      }
+      .buy-description {
+        display: block;
+        font-size: 14px;
+        line-height: 1.35;
+        margin-bottom: 25px;
+        @include media-breakpoint-up(md) {
+          font-size: 18px;
+          line-height: 1.38;
+          margin-bottom: 24px;
+        }
+      }
+    }
+  }
+}

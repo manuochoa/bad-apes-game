@@ -1,0 +1,39 @@
+.section-lambo {
+  padding: 63px 0;
+  .hero-lambo {
+    .h1 {
+      font-size: 40px;
+      position: relative;
+      text-transform: uppercase;
+      color: #f7f156;
+      filter: blur(1px);
+      z-index: 1;
+      @include media-breakpoint-up(md) {
+        font-size: 90px;
+        line-height: 1.21;
+      }
+    }
+    .lambo-img {
+      width: 100%;
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.85));
+      border-radius: 30px;
+      z-index: 0;
+      margin-top: -10px;
+      @include media-breakpoint-up(md) {
+        margin-top: -40px;
+      }
+    }
+    .lambo-description {
+      font-family: "Fredoka One";
+      font-size: 30px;
+      line-height: 1.2;
+      text-align: center;
+      text-shadow: 10px 14px 20px rgba(0, 0, 0, 0.4);
+      margin-top: 35px;
+      @include media-breakpoint-up(md) {
+        font-size: 50px;
+        margin-top: 75px;
+      }
+    }
+  }
+}

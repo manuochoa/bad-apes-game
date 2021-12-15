@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Bad Apes - Making blockchain technologies accessible.</title>
+	<meta name="description" content="Making blockchain technologies accessible to billions of people around the world.">
+	<link rel="shortcut icon" type="image/png" href="./img/favicon.png"/>
+    <script
+      src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
+      type="application/javascript"
+    ></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-md ">
+                <button class="navbar-toggler p-0" type="button" data-toggle="collapse" data-target="#navbarText"
+                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <img src="./img/logo-min.png" alt="">
+                    Menu
+                </button>
+
+
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="index.html">Bad Apes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#community">Community</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="how-to-buy.html">How to Buy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="lambo.html"><img src="./img/nav-car.png" alt="">Lambo?</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="waitlist.html">The game</a>
+                        </li> -->
+                    </ul>
+                </div>
+
+                <a href="https://pancakeswap.finance/info/token/0xc4f5424ef52499fa496a07f3fe9daab88553d4c3" class="btn-buy">Buy token</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="section-hero">
+        <div class="container">
+            <div class="hero-container">
+                <img src="./img/logo-main.png" alt="" class="hero-logo">
+                <img src="./img/logo-main-sm.png" alt="" class="hero-logo-sm">
+                <h1 class="h1">Making blockchain technologies accessible to billions of people around the world.</h1>
+                <div class="hero-btn-block">
+                    <a href="https://pancakeswap.finance/info/token/0xc4f5424ef52499fa496a07f3fe9daab88553d4c3" class="btn-main">Buy token</a>  
+                    <a href="https://badapes.co/BAD_APES_Full_Smart_Contract_Security_Audit.pdf" class="link-btn mx-auto" target="_blank">Verified by Techrate</a>
+                </div>
+                <div class="clipboard clipboard-lg">
+                    <input type="text" class="clipboard-input" value="0xc4f5424ef52499fa496a07f3fe9daab88553d4c3"
+                        id="clipboardInput">
+                    <button onclick="clipboardFunction()" class="btn-clipboard">Copy</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-partners">
+        <div class="container">
+            <div class="partners-container">
+                <div class="partner-group partner-group-1">
+                    <span class="partner-labele">Available on:</span>
+                    <div class="partners-block">
+                        <a target="_blank" href="https://pancakeswap.finance/info/token/0xc4f5424ef52499fa496a07f3fe9daab88553d4c3" class="partner">
+                            <img src="./img/partner-1.png" alt="Pancake Swap">
+                        </a>
+                        <a target="_blank" href="https://bscscan.com/token/0xc4f5424ef52499fa496a07f3fe9daab88553d4c3" class="partner">
+                            <img src="./img/partner-2.png" alt="BscScan">
+                        </a>
+                    </div>
+                </div>
+                <div class="partner-group partner-group-2">
+                    <span class="partner-labele">Coming soon to:</span>
+                    <div class="partners-block">
+                        <a href="#" class="partner">
+                            <img src="./img/partner-3.png" alt="">
+                        </a>
+                        <a href="#" class="partner">
+                            <img src="./img/partner-4.png" alt="">
+                        </a>
+                        <a href="#" class="partner">
+                            <img src="./img/partner-5.png" alt="">
+                        </a>
+                        <div class="d">
+                        </div>
+                    </div>
+                </div>
+    </section>
+    <section class="section-tokenomics-cards">
+        <div class="container">
+            <h2 class="h3"><span>BadApes</span> Tokenomics</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-7">
+                    <div class="tokenomics-card">
+                        <div class="tokenomics-title"><img src="./img/token-1.png" alt="">Passive Income System</div>
+                        <span class="tokenomics-description">2% of every transaction with $BADAPES is deducted and
+                            redistributed to holders. It means that just by holding it you will see the number of tokens
+                            increasing automatically everyday as the community transacts.</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-7">
+                    <div class="tokenomics-card">
+                        <div class="tokenomics-title"><img src="./img/token-2.png" alt="">Deflationary Currency</div>
+                        <span class="tokenomics-description">An additional 1% of the amount of all transactions is taken
+                            out
+                            of circulation, meaning that our token supply is constantly shrinking and making your
+                            $BADAPES
+                            increase in value with time. We have already started with 39% of the supply burned.</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-7">
+                    <div class="tokenomics-card">
+                        <div class="tokenomics-title"><img src="./img/token-3.png" alt="">Anti-Whale-Bot Trap</div>
+                        <span class="tokenomics-description">Everyone is expected to make profit but we want profit to
+                            be
+                            for everyone. $BADAPES is coded in a way that prevents big wallet holders (whales) from
+                            trying
+                            to manipulate the price in their favour or from dumping the token by selling out.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-utility">
+        <div class="container">
+            <h3 class="h4">Utility Token For Decentralized Communities</h3>
+            <div class="description">An end-to-end solution for token-based app economies and NFTs that benefits
+                the community</div>
+            <img src="./img/logo-min.png" alt="" class="utility-img-mobile">
+
+            <div class="utility-container">
+                <div class="utility-block ">
+                    <div class="utility-title">Blockchain platform for Dapps</div>
+                    <div class="utility-description"><img src="./img/logo-min.png" alt="" class="utility-img">
+                        We’re building a complete set of technologies, tools, and services
+                        that
+                        erase any barriers to enter to blockchain technology — for app developers, and users.</div>
+                </div>
+                <div class="utility-block ">
+                    <div class="utility-title">Equity Free Developers Fund</div>
+                    <div class="utility-description"><img src="./img/logo-min.png" alt="" class="utility-img">
+
+                        We will provide grants for creators to help accelerate the adoption
+                        of
+                        blockchain technology, and bringing its benefits to the masses faster.</div>
+                </div>
+                <div class="utility-block ">
+                    <div class="utility-title">No Code tools</div>
+                    <div class="utility-description"><img src="./img/logo-min.png" alt="" class="utility-img">
+                        We are introducing a new way to build Dapps. It's a no-code tool
+                        that
+                        lets you build Crypto apps, marketplaces and NFTs without code.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-benefits">
+        <div class="container">
+            <h3 class="h2">Benefits of BAD APES Platform</h3>
+            <div class="description  col-xl-8 col-md-10 mx-auto mb-lg-3 mt-lg-3 mt-4">
+                <span class="sm-block">An end-to-end solution for token-based apps.</span>
+                Our full-stack solution is architected from the ground up to be
+                easy to use, fully
+                compliant, and interoperable with any Binance Smart Chain (BEP-20)
+            </div>
+            <div class="col-xl-10 mx-auto px-lg-5 px-md-0 px-1">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="benefits-card ">
+                            <div class="benefits-name">Seamless Wallet</div>
+                            <div class="benefits-description">It all starts here: we've simplified the first vital step in allowing the community to own and manage digital assets across any mobile apps. </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="benefits-card ">
+                            <div class="benefits-name">NFT</div>
+                            <div class="benefits-description">We provide the easiest way for any creator to start building a sustainable and resilient value foundation for your NFT collection.</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="benefits-card ">
+                            <div class="benefits-name">Scalable Economics</div>
+                            <div class="benefits-description">“If you build it they will come.” Start with NFTs today and build up a rich in-app economy. Our API will grant you access
+                                to the entire BAD APE community base to pitch your app.</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="benefits-card">
+                            <div class="benefits-name">Market Place & Liquidity</div>
+                            <div class="benefits-description">Our marketplace technology and exchange services include novel safeguards and security, unparalleled liquidity for all.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-socials" id="community">
+        <div class="container">
+            <div class="socials-container col-lg-9 col-md-8 col-sm-9 px-xl-5 px-0 mx-auto">
+                <a target="_blank"  href="https://twitter.com/badapebayc" class="socials-block">
+                    <img src="./img/sot-1.svg" alt="Twitter Bad Apes">
+                    <div class="socials-name">Twitter</div>
+                </a>
+                <a target="_blank" href="https://t.me/joinchat/kRHr74AEtYIyMzRh" class="socials-block">
+                    <img src="./img/sot-2.svg" alt="Telegram Bad Apes">
+                    <div class="socials-name">Telegram</div>
+                </a>
+                <a target="_blank"  href="#" class="socials-block">
+                    <img src="./img/sot-3.svg" alt="">
+                    <div class="socials-name">Discord</div>
+                </a>
+                <a target="_blank"  href="#" class="socials-block">
+                    <img src="./img/sot-4.svg" alt="">
+                    <div class="socials-name">Facebook</div>
+                </a>
+                <a target="_blank"  href="https://www.instagram.com/badapes_token" class="socials-block">
+                    <img src="./img/sot-5.svg" alt="">
+                    <div class="socials-name">Instagram</div>
+                </a>
+                <a target="_blank"  href="https://vm.tiktok.com/TTPdY7LCrm/" class="socials-block">
+                    <img src="./img/sot-6.svg" alt="Tiktok Bad Apes">
+                    <div class="socials-name">Tiktok</div>
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="section-commitment">
+        <div class="container">
+            <h3 class="h2">Bad Apes Commitment</h3>
+            <div class="description col-xl-9 col-md-10 mx-auto px-0">Building a community-owned platform for Dapps with
+                breakthrough technologies and
+                new economic models presents an opportunity to change the crypto industry forever. It also presents a
+                set of complex challenges that have never been solved before. </div>
+            <div class="description col-xl-8 col-md-10 mx-auto px-0">To help guide us as we map out this new frontier of
+                decentralized apps are 5 key
+                commitments that are reflected in our work, and in the community itself.</div>
+            <ol class="commitment-list col-xl-9 col-lg-10 mx-auto px-1 px-lg-3">
+                <li class="commitment-item">
+                    <div class="commitment-name">Community owned</div>
+                    <div class="commitment-description">Today’s apps are built on economic models that are unsustainable
+                        in the future for many. We’re dedicated to rewriting the rules and building an entirely new type
+                        of economic platform that sets community ownership, participation, and growth as its starting
+                        point—and its end. By rewarding developers, community members, and publishers who contribute to
+                        the network’s health, a new era of community-focused app economies can emerge. </div>
+                </li>
+                <li class="commitment-item">
+                    <div class="commitment-name">Open & Interoperable</div>
+                    <div class="commitment-description">We believe Bad Apes community-owned platform must be inclusive,
+                        independent, and interoperable. That’s why we’re weaving cross-chain and cross-platform
+                        functionality into the fabric of our platform, erasing any barriers to entry for community
+                        members, and ensuring that our platform will continuously improve and serve the community as new
+                        protocols, tools, and standards arise.</div>
+                </li>
+                <li class="commitment-item">
+                    <div class="commitment-name">Decentralized</div>
+                    <div class="commitment-description">Centralized platforms inevitably create a virtual ceiling and
+                        often end up taking opportunities from, and limiting growth, for the rest of the community
+                        through monopolistic behavior. As our technology matures and adoption increases, we commit to
+                        transition to a fully decentralized platform that’s owned, controlled, and nurtured by the
+                        community at large. In doing so, developers, players, and publishers of all sizes will be able
+                        to reap the benefits of community economics without having to trust a centrally managed
+                        platform.</div>
+                </li>
+                <li class="commitment-item">
+                    <div class="commitment-name">Governance</div>
+                    <div class="commitment-description">Our aim is to create a transparent, intuitive, and sensible
+                        governance framework that ensures no one person or group can control the Bad Apes platform or
+                        network, and that actions which are in the best interests of the larger community are rewarded.
+                        We’re working tirelessly to find the right rules and mechanisms necessary to create such an
+                        unprecedented but vital governance system. </div>
+                </li>
+                <li class="commitment-item">
+                    <div class="commitment-name">Accountability</div>
+                    <div class="commitment-description">We care deeply about people. That’s why we’re building a
+                        platform that we believe will forever change the crypto industry in positive ways—better
+                        business models for developers, new types of apps for fans, and community economics that benefit
+                        everyone. As such, we’re committed to long-term investments in building the proper technology
+                        and infrastructure necessary for the platform and community rather than seeking any form of
+                        short-term financial gain. </div>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="d-flex py-5">
+                <a href="https://badapes.co/BAD_APES_Full_Smart_Contract_Security_Audit.pdf" class="link-btn mx-auto" target="_blank">Audit
+                    Paper</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script
+      src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
+      type="application/javascript"
+    ></script>
+    <script src="./js/jquery.js "></script>
+    <script src="./js/bootstrap.js "></script>
+    <script src="./js/script.js "></script>
+</body>
+
+</html>

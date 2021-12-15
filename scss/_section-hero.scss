@@ -1,0 +1,129 @@
+.section-hero {
+  padding: 103px 0 46px;
+  @include media-breakpoint-up(md) {
+    padding: 70px 0 30px;
+  }
+  &.hero-community {
+    padding: 46px 0 66px;
+    @include media-breakpoint-up(md) {
+      padding: 11px 0 81px;
+    }
+  }
+  .hero-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .hero-btn-block {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      .btn-main {
+        margin-left:  auto;
+        margin-right: auto;
+        @include media-breakpoint-up(md) {
+          margin-left: 160px;
+        }
+      }
+      .link-btn {
+        padding: 0 20px;
+        color: #ffffff;
+      }
+     
+    }
+  }
+  .hero-description {
+    margin-top: 34px;
+    margin-bottom: 13px;
+    font-size: 14px;
+    line-height: 1.36;
+    @include media-breakpoint-up(md) {
+      font-family: "Roboto";
+      font-size: 24px;
+      line-height: 1.16;
+      margin-top: 39px;
+      margin-bottom: 27px;
+    }
+  }
+  .hero-logo {
+    display: none;
+    width: 667px;
+    max-width: 90%;
+    margin-bottom: 26px;
+    margin-left: 4%;
+    @include media-breakpoint-up(md) {
+      display: block;
+    }
+  }
+  .hero-logo-sm {
+    display: block;
+    width: 667px;
+    max-width: 90%;
+    margin-bottom: 26px;
+
+    @include media-breakpoint-up(md) {
+      display: none;
+    }
+  }
+
+  .btn-main {
+    margin: 34px auto 25px;
+    @include media-breakpoint-up(md) {
+      margin: 36px auto 31px;
+    }
+  }
+
+  .clipboard {
+    display: flex;
+    border: 3px solid #f7f156;
+    border-radius: 80px;
+    padding: 14px 23px;
+    max-width: 100%;
+    @include media-breakpoint-up(md) {
+    }
+    &-lg {
+      display: none;
+      @include media-breakpoint-up(md) {
+        display: flex;
+      }
+    }
+    img {
+      width: 26px;
+      height: 26px;
+      margin-right: 40px;
+    }
+    .price {
+      display: block;
+      font-family: "Roboto";
+      font-size: 24px;
+      line-height: 28px;
+    }
+    .clipboard-input,
+    .btn-clipboard {
+      border: none;
+      background: transparent;
+      font-family: "Roboto";
+      font-size: 11px;
+      line-height: 1.16;
+      color: #ffffff;
+      width: 540px;
+      max-width: 100%;
+      @include media-breakpoint-up(md) {
+        font-size: 24px;
+      }
+    }
+    .clipboard-input {
+      pointer-events: none;
+    }
+    .btn-clipboard {
+      color: #f7f156;
+      width: max-content;
+      margin-left: 5px;
+      &:focus {
+        color: #f7f15650;
+      }
+      @include media-breakpoint-up(md) {
+        margin-left: 40px;
+      }
+    }
+  }
+}
