@@ -14144,10 +14144,16 @@ select {
 }
 
 .animation-img-block-sm {
-  background: url("../img/map20.jpg");
+  background: url("../img/map-mobile.jpg");
   width: 1921px;
   height: 1080px;
+  background-size: cover;
   background-repeat: no-repeat;
+}
+@media (min-width: 1280px) {
+  .animation-img-block-sm {
+    background: url("../img/map-lg-castle.jpg");
+  }
 }
 
 .animation-img-block {
