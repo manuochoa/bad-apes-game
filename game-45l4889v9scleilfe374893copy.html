@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bad Apes Game</title>
+    <meta name="description"
+        content="Making blockchain technologies accessible to billions of people around the world.">
+    <link rel="shortcut icon" type="image/png" href="./img/favicon.png" />
+    <link rel="stylesheet" href="./css/owl.carousel.min.css">
+    <link rel="stylesheet" href="./css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <meta name="theme-color" content="#818181">
+ </head>
+
+<body class="game-body">
+
+
+
+
+    <section class="top-panel">
+
+        <img src="./svg/logo-ba.svg" alt="" class="top-panel-logo">
+        <ul class="top-panel-cards-list col">
+            <li class="top-panel-card">
+                <div class="tp-card-img-block">
+                    <img src="./img/tp-11.png" alt="monke" class="tp-card-img">
+                </div>
+                <div class="tp-card-description">
+                    <h3 class="tp-card-title">MINERS</h3>
+                    <table class="tp-card-info">
+                        <tr class="tp-card-row">
+                            <td class="tp-card-text">MINTED</td>
+                            <td id="minted-miners" class="tp-card-text">0</td>
+                        </tr>
+                        <tr class="tp-card-row">
+                            <td class="tp-card-text">STAKED</td>
+                            <td id="staked-miners" class="tp-card-text">0</td>
+                        </tr>
+                        <tr class="tp-card-row">
+                            <td class="tp-card-text">STOLEN</td>
+                            <td class="tp-card-text">0</td>
+                        </tr>
+                    </table>
+                </div>
+            </li>
+            <li class="top-panel-card">
+                <div class="tp-card-img-block">
+                    <img src="./img/tp-21.png" alt="monke" class="tp-card-img">
+                </div>
+                <div class="tp-card-description">
+                    <h3 class="tp-card-title">BAD APES</h3>
+                    <table class="tp-card-info">
+                        <tr class="tp-card-row">
+                            <td class="tp-card-text">MINTED</td>
+                            <td id="minted-bad-apes" class="tp-card-text">0</td>
+                        </tr>
+                        <tr class="tp-card-row">
+                            <td class="tp-card-text">STAKED</td>
+                            <td id="staked-bad-apes" class="tp-card-text">0</td>
+                        </tr>
+                        <tr class="tp-card-row">
+                            <td class="tp-card-text">STOLEN</td>
+                            <td class="tp-card-text">0</td>
+                        </tr>
+                    </table>
+                </div>
+            </li>
+            <li class="top-panel-card">
+                <div class="tp-card-img-block">
+                    <img src="./img/tp-3.png" alt="monke" class="tp-card-img">
+                </div>
+                <div class="tp-card-description">
+                    <h3 class="tp-card-title">NOBLE APES</h3>
+                    <table class="tp-card-info">
+                        <tr class="tp-card-row">
+                            <td class="tp-card-text">MINTED</td>
+                            <td class="tp-card-text">0</td>
+                        </tr>
+                        <tr class="tp-card-row">
+                            <td class="tp-card-text">TOTAL</td>
+                            <td class="tp-card-text">0</td>
+                        </tr>
+                    </table>
+                </div>
+            </li>
+            <li class="top-panel-card">
+                <div class="tp-card-img-block">
+                    <img src="./img/tp-41.png" alt="monke" class="tp-card-img">
+                </div>
+                <div class="tp-card-description">
+                    <h3 class="tp-card-title">CLAIMED GOLD</h3>
+                    <p class="tp-card-text">0</p>
+                </div>
+            </li>
+            <li class="top-panel-card">
+                <div class="tp-card-img-block">
+                    <img src="./img/tp-51.png" alt="monke" class="tp-card-img">
+                </div>
+                <div class="tp-card-description">
+                    <h3 class="tp-card-title">LAND Deeds</h3>
+                    <table class="tp-card-info">
+                        <tr class="tp-card-row">
+                            <td class="tp-card-text">Minted</td>
+                            <td class="tp-card-text">0</td>
+                        </tr>
+                        <tr class="tp-card-row">
+                            <td class="tp-card-text">TOTAL</td>
+                            <td class="tp-card-text">0</td>
+                        </tr>
+                    </table>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <section class="panel-sm">
+        <!-- <img src="./img/top-panel-logo.png" alt="" class="top-panel-logo"> -->
+        <!-- <img src="./img/top-panel-lg.png" alt="background image" class="top-panel-bg-img"> -->
+        <div class="panel-sm-logo-block" data-toggle="modal" data-target="#walletModal">
+            <img src="./img/wallet.png" alt="">
+            <!-- <img src="./img/menu-sm-oval.png" alt=""> -->
+        </div>
+
+        <img src="./img/menu-sm-bg.png" alt="background image" class="panel-sm-bg-img">
+        <ul class="panel-sm-list col" data-toggle="modal" data-target="#topNavModal">
+            <li class="panel-sm-item" >$gold: <span id="user-gold-balance-mobile">0</span></li>
+            <li class="panel-sm-item">nobles:<span>0</span></li>
+            <li class="panel-sm-item">land:<span>0</span></li>
+            <li class="panel-sm-item" >$BAYC <span id="user-bayc-balance-mobile">0</span></li>
+        </ul>
+    </section>
+
+    <section class="menu">
+        <h2 class="game-menu-title">menu</h2>
+        <ul class="game-menu-list">
+            <li class="game-menu-item"><button type="button" class="game-menu-btn" data-toggle="modal"
+                    data-target="#leaderboardModal">leaders board</button></li>
+            <li class="game-menu-item"><a href="#" class="game-menu-btn">faq</a></li>
+            <li class="game-menu-item"><a href="whitepaper.html" class="game-menu-btn">white paper</a></li>
+        </ul>
+    </section>
+
+    <section class="btn-mobile-block">
+        <button class="menu-toggler" type="button" data-toggle="modal" data-target="#leaderboardModal"><img
+                src="./img/bt-price.png" alt="toggler"></button>
+
+        <a href="whitepaper.html" class="menu-toggler"><img src="./img/bt-book.png" alt="toggler"></a>
+
+        <a href="#" class="menu-toggler"><img src="./img/bt-question.png" alt="toggler"></a>
+    </section>
+
+    <section class="blockchain-block">
+        <button onclick="connectWallet()" id="connect-button" class="btn-decoration order-3">CONNECT WALLET</button>
+        <!-- <div class="gold-detail order-1">
+            <img src="./img/gold.png" alt="gold" class="gold-img">
+            <div class="detail-block">
+                <h3 class="detail-title">GOLD</h3>
+                <p class="detail-count">50,000</p>
+            </div>
+        </div> -->
+        <button
+          onclick="mintOneApe()"
+          id="mint-button"
+          class="btn-decoration order-2"
+        >
+          Mint
+        </button>
+        <button
+          onclick="mintWithBAYC()"
+          id="mint-button"
+          class="btn-decoration order-2"
+        >
+          Mint with BAYC
+        </button>
+        <div class="blockchain-description-text">Main Network (0xC78D42C78D41a...)</div>
+        </div>
+
+
+
+    </section>
+
+    <section class="bottom-game-block" id="accordion">
+
+        <div class="sm-toggler-carousel-btn">
+            <button class="sm-toggler-btn " data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                aria-controls="collapseOne">
+                <!-- <img src="./img/tp-1.png" alt=""> -->
+            </button>
+            <button class="sm-toggler-btn collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                aria-expanded="false" aria-controls="collapseTwo">
+                <!-- <img src="./img/manke-blue-bg.png" alt=""> -->
+            </button>
+        </div>
+
+
+
+
+        <!-- FIRST BOTTOM BORD START-->
+        <div class="wallet-bord">
+            <button class="wallet-noble-btn" data-toggle="modal" data-target="#walletModal"><img src="./img/wallet.png"
+                    alt="manke"></button>
+            <h2 class="wallet-title">in your Wallet:</h2>
+            <ul class="wallet-list">
+                <li class="wallet-item">land: <span>0</span></li>
+                <li class="wallet-item">nobles: <span>0</span></li>
+                <li class="wallet-item">$gold: <span id="user-gold-balance">0</span></li>
+                <li class="wallet-item">$bayc: <span id="user-bayc-balance">0</span></li>
+            </ul>
+        </div>
+        <!-- FIRST BOTTOM BORD END-->
+
+
+
+        <!-- SECOND BOTTOM BORD START-->
+        <div class="status-bord collapse show" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="status-bord-info">
+                <div class="status-description-block">
+                    <div class="status-title">TOTAL MINED GOLD:</div>
+                    <div id="user-gold-mined" class="status-count">0</div>
+                </div>
+                <div class="status-description-block">
+                    <div class="status-title">MINERS:</div>
+                    <div id="user-miners-count" class="status-count">0</div>
+                </div>
+                <div class="status-description-block ml-auto">
+                    <div class="status-title">CAN CLAIM</div>
+                    <div class="status-count">0</div>
+                </div>
+                <button class="btn-decoration" data-toggle="modal" data-target="#claimModal">CLAIM</button>
+            </div>
+            <div class="container-status-bord-carousel">
+                <div id="miners-list" class="owl-carousel status-bord-carousel">
+                   
+                </div>
+            </div>
+        </div>
+        <!-- SECOND BOTTOM BORD END-->
+
+        <!-- THIRD BOTTOM BORD START-->
+        <div class="personage-bord collapse" id="collapseTwo" aria-labelledby="headingTwo" data-parent="#accordion">
+            <h2 class="personage-title">BAD APES: <span id="user-badapes-count">0</span></h2>
+            <!-- <div class="personage_carousel-block"> -->
+            <div id="bad-apes-list" class="owl-carousel personage_carousel">
+                
+
+            </div>
+            <!-- </div> -->
+        </div>
+        <!-- THIRD BOTTOM BORD END-->
+    </section>
+
+    <section class="main-game">
+
+        <div class="animation-img-block" style=" top: 430px;">
+            <div class="figure figure-1"></div>
+        </div>
+
+        <div class="animation-img-block" style=" left: 600px">
+            <div class="figure figure-2"></div>
+        </div>
+
+        <div class="animation-img-block" style="top: 480px;left: 400px">
+            <div class="figure figure-3"></div>
+        </div>
+
+        <div class="animation-img-block-sm"></div>
+
+
+    </section>
+
+
+
+
+
+
+
+
+
+
+    <!--  MODALS  -->
+    <!-- from menu leaderboard Modal -->
+    <div class="modal fade " id="leaderboardModal" tabindex="-1" role="dialog" aria-labelledby="leaderboardModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered max-w-900" role="document">
+            <div class="modal-content modal-leaderboard">
+                <div class="head">LEADERBOARD</div>
+                <div class="leaderboard-table-container">
+                    <table class="leaderboard-table">
+                        <tr>
+                            <td class="leaderboard-text">1</td>
+                            <td class="leaderboard-text">0XIGHU8CCS</td>
+                            <td class="leaderboard-text">12 APES</td>
+                            <td class="leaderboard-text">1340K GOLD</td>
+                        </tr>
+                        <tr>
+                            <td class="leaderboard-text">2</td>
+                            <td class="leaderboard-text">0XC89H45x83</td>
+                            <td class="leaderboard-text">11 APES</td>
+                            <td class="leaderboard-text">439K GOLD</td>
+                        </tr>
+                        <tr>
+                            <td class="leaderboard-text">3</td>
+                            <td class="leaderboard-text">0XC12J24O34</td>
+                            <td class="leaderboard-text">11 APES</td>
+                            <td class="leaderboard-text">321K GOLD</td>
+                        </tr>
+                        <tr>
+                            <td class="leaderboard-text">4</td>
+                            <td class="leaderboard-text">0XC12Yi90L56</td>
+                            <td class="leaderboard-text">10 APES</td>
+                            <td class="leaderboard-text">280K GOLD</td>
+                        </tr>
+                        <tr>
+                            <td class="leaderboard-text">5</td>
+                            <td class="leaderboard-text">0XC12J24O34</td>
+                            <td class="leaderboard-text">9 APES</td>
+                            <td class="leaderboard-text">120K GOLD</td>
+                        </tr>
+                        <tr>
+                            <td class="leaderboard-text">6</td>
+                            <td class="leaderboard-text">0XC89H45x83</td>
+                            <td class="leaderboard-text">9 APES</td>
+                            <td class="leaderboard-text">90K GOLD</td>
+                        </tr>
+                    </table>
+                </div>
+                <button type="button" class="btn-decoration" data-dismiss="modal">Close</button>
+
+                <button type="button" class="btn-x" data-dismiss="modal"><img src="./img/x.svg" alt=""></button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--  -->
+
+    <div class="modal fade" id="walletModal" tabindex="-1" role="dialog" aria-labelledby="walletModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-wallet">
+                <h4 class="modal-title">Change your Noble</h4>
+                <div class="icon-block">
+                    <button class="icon-btn" type="button">
+                        <img src="./img/wallet.png" alt="">
+                    </button>
+                    <button class="icon-btn" type="button">
+                        <img src="./img/wallet.png" alt="">
+                    </button>
+                </div>
+                <button type="button" class="btn-decoration" data-dismiss="modal">Change</button>
+
+                <button type="button" class="btn-x" data-dismiss="modal"><img src="./img/x.svg" alt=""></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="unlockModal" tabindex="-1" role="dialog" aria-labelledby="unlockModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modale-change-noble">
+                <h4 class="modal-title">20,000 GOLD</h4>
+                <p class="modal-description">You can Mint a new ape</p>
+                <div class="icon">
+                    <img src="./img/tp-1.png" alt="">
+                </div>
+                <button type="button" class="btn-decoration" data-dismiss="modal" data-toggle="modal"
+                    data-target="#newApeModal">Unlock</button>
+                <button type="button" class="btn-x" data-dismiss="modal"><img src="./img/x.svg" alt=""></button>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="newApeModal" tabindex="-1" role="dialog" aria-labelledby="newApeModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modale-new-app">
+                <div class="icon">
+                    <img src="./img/tp-1.png" alt="">
+                </div>
+                <h4 class="modal-title">you unlocked a Miner ape</h4>
+
+                <button type="button" class="btn-x" data-dismiss="modal"><img src="./img/x.svg" alt=""></button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="unstakeModal" tabindex="-1" role="dialog" aria-labelledby="unstakeModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered max-w-620" role="document">
+            <div class="modal-content modal-unstake">
+
+                <h4 class="modal-title">Unstake your ape</h4>
+
+                <p class="modal-description mb-5">There is a 50% chance that you loose your gold to the bad apes. You
+                    will not loose your ape.</p>
+                <p class="modal-description">Do you want to continue?</p>
+                <div class="btn-blok">
+                    <button type="button" class="btn-decoration btn-no" data-dismiss="modal">no</button>
+                    <button onclick="handleUnstake()" type="button" class="btn-decoration" data-dismiss="modal" data-toggle="modal"
+                    >Yes, Unstake</button>
+                </div>
+                <button type="button" class="btn-x" data-dismiss="modal"><img src="./img/x.svg" alt=""></button>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="claimModal" tabindex="-1" role="dialog" aria-labelledby="claimModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered max-w-620" role="document">
+            <div class="modal-content modal-claim">
+
+                <h4 class="modal-title">Claim Gold</h4>
+               
+                <div class="count-block ">
+                    <div class="bounty-count">20% Bounty</div>
+                    <div id="user-gold-fee" class="gold-count">0</div>
+                </div>
+                <div class="hr"></div>
+                <div class="count-block">
+                    <div id="user-gold-claimable" class="gold-count">0</div>
+                </div>
+                <button type="button" class="btn-decoration" data-dismiss="modal" onclick="claimGold()">Claim Gold</button>
+                <button type="button" class="btn-x" data-dismiss="modal"><img src="./img/x.svg" alt=""></button>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="menuModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered max-w-620" role="document">
+            <div class="modal-content modal-menu">
+
+                <h2 class="game-menu-title">menu</h2>
+                <ul class="game-menu-list">
+                    <li class="game-menu-item"><button type="button" class="game-menu-btn" data-dismiss="modal"
+                            data-toggle="modal" data-target="#leaderboardModal">leaders board</button></li>
+                    <li class="game-menu-item"><a href="#" class="game-menu-btn">faq</a></li>
+                    <li class="game-menu-item"><a href="#" class="game-menu-btn">white paper</a></li>
+                </ul>
+                <!-- <button type="button" class="btn-x" data-dismiss="modal"><img src="./img/x.svg" alt=""></button> -->
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="topNavModal" tabindex="-1" role="dialog" aria-labelledby="topNavModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered max-w-620" role="document">
+            <div class="modal-content modal-top-nav">
+
+                <ul class="top-panel-cards-list">
+                    <li class="top-panel-card">
+                        <div class="tp-card-img-block">
+                            <img src="./img/tp-11.png" alt="monke" class="tp-card-img">
+                        </div>
+                        <div class="tp-card-description">
+                            <h3 class="tp-card-title">MINERS</h3>
+                            <table class="tp-card-info">
+                                <tr class="tp-card-row">
+                                    <td class="tp-card-text">MINTED</td>
+                                    <td id="minted-miners" class="tp-card-text">0</td>
+                                </tr>
+                                <tr class="tp-card-row">
+                                    <td class="tp-card-text">STAKED</td>
+                                    <td id="staked-miners" class="tp-card-text">0</td>
+                                </tr>
+                                <tr class="tp-card-row">
+                                    <td class="tp-card-text">STOLEN</td>
+                                    <td class="tp-card-text">0</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </li>
+                    <li class="top-panel-card">
+                        <div class="tp-card-img-block">
+                            <img src="./img/tp-21.png" alt="monke" class="tp-card-img">
+                        </div>
+                        <div class="tp-card-description">
+                            <h3 class="tp-card-title">BAD APES</h3>
+                            <table class="tp-card-info">
+                                <tr class="tp-card-row">
+                                   <td class="tp-card-text">MINTED</td>
+                                    <td id="minted-bad-apes" class="tp-card-text">0</td>
+                                </tr>
+                                <tr class="tp-card-row">
+                                     <td class="tp-card-text">STAKED</td>
+                                    <td id="staked-bad-apes" class="tp-card-text">0</td>
+                                </tr>
+                                <tr class="tp-card-row">
+                                  <td class="tp-card-text">STOLEN</td>
+                                    <td class="tp-card-text">0</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </li>
+                    <li class="top-panel-card">
+                        <div class="tp-card-img-block">
+                            <img src="./img/tp-3.png" alt="monke" class="tp-card-img">
+                        </div>
+                        <div class="tp-card-description">
+                            <h3 class="tp-card-title">NOBLE APES</h3>
+                            <table class="tp-card-info">
+                                <tr class="tp-card-row">
+                                    <td class="tp-card-text">MINTED</td>
+                                    <td class="tp-card-text">0</td>
+                                </tr>
+                                <tr class="tp-card-row">
+                                    <td class="tp-card-text">TOTAL</td>
+                                    <td class="tp-card-text">0</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </li>
+                    <li class="top-panel-card">
+                        <div class="tp-card-img-block">
+                            <img src="./img/tp-41.png" alt="monke" class="tp-card-img">
+                        </div>
+                        <div class="tp-card-description">
+                            <h3 class="tp-card-title">CLAIMED GOLD</h3>
+                            <p class="tp-card-text">230,110,840.42</p>
+                        </div>
+                    </li>
+                    <li class="top-panel-card">
+                        <div class="tp-card-img-block">
+                            <img src="./img/tp-51.png" alt="monke" class="tp-card-img">
+                        </div>
+                        <div class="tp-card-description">
+                            <h3 class="tp-card-title">LAND Deeds</h3>
+                            <table class="tp-card-info">
+                                <tr class="tp-card-row">
+                                    <td class="tp-card-text">Minted</td>
+                                    <td class="tp-card-text">0</td>
+                                </tr>
+                                <tr class="tp-card-row">
+                                    <td class="tp-card-text">TOTAL</td>
+                                    <td class="tp-card-text">0</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </li>
+                </ul>
+
+                <button type="button" class="btn-x" data-dismiss="modal"><img src="./img/x.svg" alt=""></button>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="./js/ethers-5.2.umd.min.js"></script>
+    <script src="./js/web3.min.js"></script>
+    <script src="./js/jquery.js"></script>
+    <script src="./js/bootstrap.js"></script>
+    <script src="./js/owl.carousel.min.js"></script>
+    <script src="./js/carousel.js"></script>
+    <script src="./js/abis.js"></script>
+    <script src="./js/script.js"></script>
+</body>
+
+</html>

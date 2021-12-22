@@ -1,0 +1,40 @@
+.section-benefits {
+    padding: 10px 0 50px;
+  @include media-breakpoint-up(md) {
+    padding: 66px 0;
+  }
+
+  .benefits-card {
+    background: #ffffff;
+    color: #000;
+    box-shadow: inset 0px 24px 40px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 26px;
+    padding: 28px 26px 31px 25px;
+    @include media-breakpoint-up(md) {
+      border-radius: 20px;
+      min-height: max-content;
+      max-height: 100%;
+      height: -webkit-fill-available;
+      margin-top: 46px;
+      padding: 42px 21px 46px 28px;
+    }
+    .benefits-name {
+      font-family: "Fredoka One";
+      font-size: 22px;
+      line-height: 1.22;
+      margin-bottom: 16px;
+      @include media-breakpoint-up(md) {
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+    }
+    .benefits-description {
+      font-size: 14px;
+      line-height: 1.38;
+      @include media-breakpoint-up(md) {
+        font-size: 18px;
+      }
+    }
+  }
+}

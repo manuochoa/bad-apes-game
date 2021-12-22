@@ -1,0 +1,56 @@
+.navbar {
+  position: relative;
+  padding: 23px 0 11px;
+  @include media-breakpoint-up(lg) {
+    padding: 11px;
+    padding-left: 85px;
+    padding-right: 120px;
+  }
+  .navbar-collapse {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    @include media-breakpoint-up(md) {
+      position: relative;
+      left: unset;
+      top: unset;
+      width: unset;
+    }
+    .navbar-nav {
+      background-color: #000000c7;
+      @include media-breakpoint-up(md) {
+        background-color: unset;
+      }
+    }
+  }
+  .navbar-toggler {
+    color: #fff;
+    text-transform: uppercase;
+    font-family: "Open Sans";
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 20px;
+    img {
+      margin-right: 8px;
+      width: 39px;
+      height: 39px;
+    }
+  }
+
+  .nav-link {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    color: #ffffff;
+    padding: 15px;
+    transition: 0.4s ease-in-out;
+    @include media-breakpoint-up(md) {
+      &:hover {
+        color: #f7f156;
+      }
+    }
+  }
+}
