@@ -150,11 +150,14 @@ async function connectWallet() {
 }
 
 async function mintOneApe() {
+  loading("start");
   if (userApes.staked.length + userApes.unstaked.length > 5) {
+    loading("end");
     return window.alert("MAX 5 per wallet limit set");
   }
 
   if (!whitelist.find((el) => userAddress.toLowerCase() == el.toLowerCase())) {
+    loading("end");
     return window.alert("Only Whitelisted Addresses");
   }
 
@@ -175,16 +178,20 @@ async function mintOneApe() {
   } catch (error) {
     console.log(error);
   }
+  loading("end");
 }
 
 async function mintWithBAYC() {
+  loading("start");
   if (userApes.staked.length + userApes.unstaked.length > 5) {
+    loading("end");
     return window.alert("MAX 5 per wallet limit set");
   }
 
-  // if (!whitelist.find((el) => userAddress.toLowerCase() == el.toLowerCase())) {
-  //   return window.alert("Only Whitelisted Addresses");
-  // }
+  if (!whitelist.find((el) => userAddress.toLowerCase() == el.toLowerCase())) {
+    loading("end");
+    return window.alert("Only Whitelisted Addresses");
+  }
 
   if (!(await checkAllowance())) {
     await increaseAllowance();
@@ -211,6 +218,7 @@ async function mintWithBAYC() {
   } catch (error) {
     console.log(error);
   }
+  loading("end");
 }
 
 async function checkAllowance() {
@@ -420,6 +428,16 @@ async function getUserApes() {
   )
     .toFixed(0)
     .toLocaleString("en-US");
+}
+
+function loading(status) {
+  if (status === "start") {
+    document.getElementById("mint-button").innerHTML = "Loading";
+    document.getElementById("mint-bayc-button").innerHTML = "Loading";
+  } else if (status === "end") {
+    document.getElementById("mint-button").innerHTML = "Mint";
+    document.getElementById("mint-bayc-button").innerHTML = "Mint with BAYC";
+  }
 }
 
 function addApes(timeStaked, gold, staked, tokenId) {
