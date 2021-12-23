@@ -203,7 +203,7 @@ async function mintWithBAYC() {
     let { messageHash, signature } = await signMessage();
 
     let result = await apesContract.mintWithBAYCtoken(
-      true,
+      false,
       messageHash,
       signature,
       {
@@ -244,8 +244,31 @@ async function increaseAllowance() {
   console.log(receipt);
 }
 
+async function checkNFTAllowance() {
+  let result = await apesContract.isApprovedForAll(
+    userAddress,
+    "0x32689268aCb71e85F12E4e59a2492F1905a8e209"
+  );
+
+  return result > 0;
+}
+
+async function allowNFT() {
+  console.log("allowance");
+  let result = await apesContract.setApprovalForAll(
+    "0x32689268aCb71e85F12E4e59a2492F1905a8e209",
+    true
+  );
+
+  const receipt = await result.wait();
+  console.log(receipt);
+}
+
 async function handleStake(tokenId) {
   try {
+    if (!(await checkNFTAllowance())) {
+      await allowNFT();
+    }
     let result = await mineContract.addManyToMineAndPack(userAddress, [
       tokenId,
     ]);

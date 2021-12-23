@@ -13920,6 +13920,8 @@ select {
   align-items: center;
   width: 100%;
   padding: 13px 14px 10px;
+  overflow-y: hidden;
+  overflow-x: auto;
 }
 @media (min-width: 1200px) {
   .status-bord .status-bord-carousel {
