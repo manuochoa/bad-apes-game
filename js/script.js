@@ -113,12 +113,12 @@ let BAYCContract = new ethers.Contract(
   signer
 );
 let apesContract = new ethers.Contract(
-  "0x00826f8e3886E15Df85D6712B286D9Aff8f1812C",
+  "0x898E794de5275DbcF8c8F3De89c82dF87C6897C4",
   ApesABI,
   signer
 );
 let mineContract = new ethers.Contract(
-  "0x01aF56b4Ac9d44865b96f4D35C11276AE0aF174e",
+  "0x32689268aCb71e85F12E4e59a2492F1905a8e209",
   MineABI,
   signer
 );
@@ -224,7 +224,7 @@ async function mintWithBAYC() {
 async function checkAllowance() {
   let result = await BAYCContract.allowance(
     userAddress,
-    "0x00826f8e3886E15Df85D6712B286D9Aff8f1812C"
+    "0x898E794de5275DbcF8c8F3De89c82dF87C6897C4"
   );
   console.log(result > 0);
 
@@ -234,7 +234,7 @@ async function checkAllowance() {
 async function increaseAllowance() {
   console.log("allowance");
   let result = await BAYCContract.approve(
-    "0x00826f8e3886E15Df85D6712B286D9Aff8f1812C",
+    "0x898E794de5275DbcF8c8F3De89c82dF87C6897C4",
     "9999999999999999999999999999"
   );
 
