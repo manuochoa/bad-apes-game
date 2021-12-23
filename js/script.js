@@ -134,8 +134,10 @@ async function connectWallet() {
 
       if (userAddress) {
         contractData();
-        getUserApes();
+        getUserApes(true);
       }
+
+      window.localStorage.setItem("userAddress", userAddress);
 
       document.getElementById(
         "connect-button"
@@ -172,7 +174,7 @@ async function mintOneApe() {
     console.log(result);
     const receipt = await result.wait();
     if (receipt) {
-      getUserApes();
+      getUserApes(true);
       contractData();
     }
   } catch (error) {
@@ -212,7 +214,7 @@ async function mintWithBAYC() {
     console.log(result);
     const receipt = await result.wait();
     if (receipt) {
-      getUserApes();
+      getUserApes(true);
       contractData();
     }
   } catch (error) {
@@ -250,7 +252,8 @@ async function handleStake(tokenId) {
     console.log(result);
     const receipt = await result.wait();
     if (receipt) {
-      getUserApes();
+      getUserApes(true);
+      contractData();
     }
   } catch (error) {
     console.log(error);
@@ -268,7 +271,8 @@ async function handleUnstake() {
     console.log(result);
     const receipt = await result.wait();
     if (receipt) {
-      getUserApes();
+      getUserApes(true);
+      contractData();
     }
   } catch (error) {
     console.log(error, "error");
@@ -291,7 +295,8 @@ async function claimGold() {
     console.log(result);
     const receipt = await result.wait();
     if (receipt) {
-      getUserApes();
+      getUserApes(false);
+      contractData();
     }
   } catch (error) {
     console.log(error, "error");
@@ -302,22 +307,39 @@ async function claimGold() {
 }
 
 async function contractData() {
+  let apesContract = new ethers.Contract(
+    "0x898E794de5275DbcF8c8F3De89c82dF87C6897C4",
+    ApesABI,
+    provider
+  );
+  let mineContract = new ethers.Contract(
+    "0x32689268aCb71e85F12E4e59a2492F1905a8e209",
+    MineABI,
+    provider
+  );
   let minted = (await apesContract.totalSupply()).toString();
   let badApes = (await apesContract.badApes()).toString();
   let minersStaked = (await mineContract.totalApesMining()).toString();
   let badStaked = (await mineContract.totalBadApes()).toString();
+  let goldMinted = ((await mineContract.totalGoldEarned()) / 10 ** 18).toFixed(
+    0
+  );
 
   document.getElementById("minted-miners").innerHTML = minted - badApes;
   document.getElementById("minted-bad-apes").innerHTML = badApes;
   document.getElementById("staked-miners").innerHTML = minersStaked;
   document.getElementById("staked-bad-apes").innerHTML = badStaked;
+  document.getElementById("claimed-gold-mobile").innerHTML = goldMinted;
+  document.getElementById("claimed-gold").innerHTML = goldMinted;
 }
 
-async function getUserApes() {
-  const minersDiv = document.getElementById("miners-list");
-  const badApesDiv = document.getElementById("bad-apes-list");
-  minersDiv.innerHTML = "";
-  badApesDiv.innerHTML = "";
+async function getUserApes(reloadApes) {
+  if (reloadApes) {
+    const badApesDiv = document.getElementById("bad-apes-list");
+    const minersDiv = document.getElementById("miners-list");
+    minersDiv.innerHTML = "";
+    badApesDiv.innerHTML = "";
+  }
   let goldEarned = 0;
   let miners = 0;
   let badApes = 0;
@@ -341,7 +363,9 @@ async function getUserApes() {
         goldEarned = goldEarned + timeStaked * 0.11574;
         miners++;
         let days = Math.trunc(timeStaked / 3600);
-        addApes(days, (timeStaked * 0.11574).toFixed(0), true, el);
+        if (reloadApes) {
+          addApes(days, (timeStaked * 0.11574).toFixed(0), true, el);
+        }
       } else {
         let alpha = tokenInfo.strengthIndex;
         let alphaValue;
@@ -359,7 +383,9 @@ async function getUserApes() {
         badApes++;
         let earnings = (8 - alpha) * (goldPerAlpha - stakeInfo.value);
         goldEarned = goldEarned + earnings / 10 ** 18;
-        addBadApes(goldEarned.toFixed(0), true, alphaValue, el);
+        if (reloadApes) {
+          addBadApes(goldEarned.toFixed(0), true, alphaValue, el);
+        }
       }
 
       return { ...tokenInfo, ...stakeInfo };
@@ -373,7 +399,9 @@ async function getUserApes() {
     unstakedIds.map(async (el) => {
       let tokenInfo = await apesContract.tokenInfo(el);
       if (tokenInfo.isMiner) {
-        addApes("", "0", false, el);
+        if (reloadApes) {
+          addApes("", "0", false, el);
+        }
         miners++;
       } else {
         let alpha = tokenInfo.strengthIndex;
@@ -389,7 +417,9 @@ async function getUserApes() {
         }
 
         badApes++;
-        addBadApes("", false, alphaValue, el);
+        if (reloadApes) {
+          addBadApes("", false, alphaValue, el);
+        }
       }
       return tokenInfo;
     })
@@ -581,3 +611,22 @@ async function signMessage() {
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
+
+function refreshData() {
+  console.log("refreshing");
+  if (userAddress !== "") {
+    getUserApes(false);
+  }
+  contractData();
+}
+
+function checkUser() {
+  let user = window.localStorage.getItem("userAddress");
+  if (user) {
+    connectWallet();
+  }
+
+  contractData();
+}
+
+checkUser();
