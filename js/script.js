@@ -98,12 +98,13 @@ let userApes = {
 let userStakedIds = [];
 let isWaitlisted = false;
 let selectedToken;
+let BAYCprice;
 
 let provider = new ethers.providers.Web3Provider(window.ethereum);
 let signer = provider.getSigner(0);
 
-let apesAddress = "0x2F3FB6337627389CE45C78dfA2b5DdF8D6fEc5Ff";
-let mineAddress = "0x88Ed2491f4BB82A709bB3D83646BaB6715F058F4";
+let apesAddress = "0xde9304cC3c826D9f485e76588ebD8bd66e46034a";
+let mineAddress = "0x2c84FAE9F5D069bd62DBdA51b385Bb348D8c9A20";
 
 let goldContract = new ethers.Contract(
   "0x48197AFc712c337B91F4FDb15aF0433955E14f7C",
@@ -148,6 +149,8 @@ async function connectWallet() {
 
 async function mintOneApe() {
   loading("start");
+  const mintImage = document.getElementById("mint-img");
+  const title = document.getElementById("minting-title");
   if (userApes.staked.length + userApes.unstaked.length > 5) {
     loading("end");
     return window.alert("MAX 5 per wallet limit set");
@@ -160,17 +163,22 @@ async function mintOneApe() {
 
   try {
     let { messageHash, signature } = await signMessage();
+    title.innerHTML = "Sign Transaction...";
 
     let result = await apesContract.regularMint(true, messageHash, signature, {
       gasLimit: 500000,
       value: ethers.utils.parseEther("0.69420"),
     });
+    title.innerHTML = "Minting...";
+    mintImage.src = "./img/mint-gif.gif";
 
     console.log(result);
     const receipt = await result.wait();
     if (receipt) {
+      newApeImage(receipt);
       getUserApes(true);
       contractData();
+      console.log(receipt);
     }
   } catch (error) {
     console.log(error);
@@ -180,23 +188,28 @@ async function mintOneApe() {
 
 async function mintWithBAYC() {
   loading("start");
-  if (userApes.staked.length + userApes.unstaked.length > 5) {
-    loading("end");
-    return window.alert("MAX 5 per wallet limit set");
-  }
-
-  if (!whitelist.find((el) => userAddress.toLowerCase() == el.toLowerCase())) {
-    loading("end");
-    return window.alert("Only Whitelisted Addresses");
-  }
-
-  if (!(await checkAllowance())) {
-    await increaseAllowance();
-  }
-
+  const mintImage = document.getElementById("mint-img");
+  const title = document.getElementById("minting-title");
   try {
+    if (userApes.staked.length + userApes.unstaked.length > 5) {
+      loading("end");
+      return window.alert("MAX 5 per wallet limit set");
+    }
+
+    if (
+      !whitelist.find((el) => userAddress.toLowerCase() == el.toLowerCase())
+    ) {
+      loading("end");
+      return window.alert("Only Whitelisted Addresses");
+    }
+
+    if (!(await checkAllowance())) {
+      await increaseAllowance();
+    }
+
     let { messageHash, signature } = await signMessage();
 
+    title.innerHTML = "Sign Transaction...";
     let result = await apesContract.mintWithBAYCtoken(
       true,
       messageHash,
@@ -205,17 +218,55 @@ async function mintWithBAYC() {
         gasLimit: 600000,
       }
     );
+    title.innerHTML = "Minting...";
+    mintImage.src = "./img/mint-gif.gif";
 
     console.log(result);
     const receipt = await result.wait();
     if (receipt) {
+      newApeImage(receipt);
       getUserApes(true);
       contractData();
+      console.log(receipt);
     }
   } catch (error) {
-    console.log(error);
+    mintImage.src = "./img/tp-1.png";
+    title.innerHTML = "Mint a new Ape";
+    window.alert("Mint Failed, something went wrong");
+    console.log(error, "error");
   }
   loading("end");
+}
+
+async function newApeImage(receipt) {
+  receipt.logs.map(async (event) => {
+    if (
+      event.topics[0] ===
+      "0x654aa85b2af57b53beb55f7fe31413e8d6d5ab5411a0c0c7fe975140f96abb74"
+    ) {
+      let data = ethers.utils.defaultAbiCoder.decode(
+        ["address", "uint", "uint"],
+        event.data
+      );
+      let { tokenInfo, image } = await getApeData(data[1]);
+      document.getElementById("mint-img").src = image;
+
+      if (tokenInfo.isMiner) {
+        document.getElementById("minting-title").innerHTML = "Got a Miner";
+      } else {
+        document.getElementById("minting-title").innerHTML = "Got a Bad Ape";
+      }
+    }
+  });
+}
+
+async function getApeData(tokenId) {
+  let tokenInfo = await apesContract.tokenInfo(tokenId);
+  let uri = await apesContract.tokenURI(tokenId);
+  let metadata = await fetch(`https://ipfs.io/ipfs/${uri.split("//")[1]}`);
+  let metadataJSON = await metadata.json();
+  let image = metadataJSON.image;
+  return { tokenInfo, image };
 }
 
 async function checkAllowance() {
@@ -226,14 +277,23 @@ async function checkAllowance() {
 }
 
 async function increaseAllowance() {
-  console.log("allowance");
-  let result = await BAYCContract.approve(
-    apesAddress,
-    "9999999999999999999999999999"
-  );
+  try {
+    document.getElementById("minting-title").innerHTML = "Approving...";
+    console.log("allowance");
+    let result = await BAYCContract.approve(
+      apesAddress,
+      "9999999999999999999999999999"
+    );
 
-  const receipt = await result.wait();
-  console.log(receipt);
+    const receipt = await result.wait();
+    if (receipt) {
+      console.log(receipt);
+      return true;
+    }
+  } catch (error) {
+    console.log(error);
+    throw "Allowance not approved!";
+  }
 }
 
 async function checkNFTAllowance() {
@@ -318,6 +378,7 @@ async function claimGold() {
 async function contractData() {
   let apesContract = new ethers.Contract(apesAddress, ApesABI, provider);
   let mineContract = new ethers.Contract(mineAddress, MineABI, provider);
+  BAYCprice = ((await apesContract.BAYCcost()) / 10 ** 18).toFixed(0);
   let minted = (await apesContract.totalSupply()).toString();
   let badApes = (await apesContract.badApes()).toString();
   let minersStaked = (await mineContract.totalApesMining()).toString();
@@ -332,6 +393,7 @@ async function contractData() {
   document.getElementById("staked-bad-apes").innerHTML = badStaked;
   document.getElementById("claimed-gold-mobile").innerHTML = goldMinted;
   document.getElementById("claimed-gold").innerHTML = goldMinted;
+  document.getElementById("mint-bayc-button").innerHTML = `${BAYCprice} BAYC`;
 }
 
 async function getUserApes(reloadApes) {
@@ -353,11 +415,12 @@ async function getUserApes(reloadApes) {
 
   await Promise.all(
     stakedIds.map(async (el) => {
-      let tokenInfo = await apesContract.tokenInfo(el);
-      let uri = await apesContract.tokenURI(el);
-      let metadata = await fetch(`https://ipfs.io/ipfs/${uri.split("//")[1]}`);
-      let metadataJSON = await metadata.json();
-      let image = metadataJSON.image;
+      let { tokenInfo, image } = await getApeData(el);
+      // let tokenInfo = await apesContract.tokenInfo(el);
+      // let uri = await apesContract.tokenURI(el);
+      // let metadata = await fetch(`https://ipfs.io/ipfs/${uri.split("//")[1]}`);
+      // let metadataJSON = await metadata.json();
+      // let image = metadataJSON.image;
 
       let stakeInfo;
 
@@ -403,11 +466,12 @@ async function getUserApes(reloadApes) {
 
   await Promise.all(
     unstakedIds.map(async (el) => {
-      let tokenInfo = await apesContract.tokenInfo(el);
-      let uri = await apesContract.tokenURI(el);
-      let metadata = await fetch(`https://ipfs.io/ipfs/${uri.split("//")[1]}`);
-      let metadataJSON = await metadata.json();
-      let image = metadataJSON.image;
+      let { tokenInfo, image } = await getApeData(el);
+      // let tokenInfo = await apesContract.tokenInfo(el);
+      // let uri = await apesContract.tokenURI(el);
+      // let metadata = await fetch(`https://ipfs.io/ipfs/${uri.split("//")[1]}`);
+      // let metadataJSON = await metadata.json();
+      // let image = metadataJSON.image;
 
       if (tokenInfo.isMiner) {
         if (reloadApes) {
@@ -474,10 +538,14 @@ async function getUserApes(reloadApes) {
 function loading(status) {
   if (status === "start") {
     document.getElementById("mint-button").innerHTML = "Loading";
+    document.getElementById("mint-button").disabled = true;
     document.getElementById("mint-bayc-button").innerHTML = "Loading";
+    document.getElementById("mint-bayc-button").disabled = true;
   } else if (status === "end") {
-    document.getElementById("mint-button").innerHTML = "Mint";
-    document.getElementById("mint-bayc-button").innerHTML = "Mint with BAYC";
+    document.getElementById("mint-button").innerHTML = "0.6942 BNB";
+    document.getElementById("mint-button").disabled = false;
+    document.getElementById("mint-bayc-button").innerHTML = `${BAYCprice} BAYC`;
+    document.getElementById("mint-bayc-button").disabled = false;
   }
 }
 

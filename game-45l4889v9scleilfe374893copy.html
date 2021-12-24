@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./css/owl.theme.default.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <meta name="theme-color" content="#818181">
- </head>
+</head>
 
 <body class="game-body">
 
@@ -119,24 +119,25 @@
         <!-- <img src="./img/top-panel-logo.png" alt="" class="top-panel-logo"> -->
         <!-- <img src="./img/top-panel-lg.png" alt="background image" class="top-panel-bg-img"> -->
         <div class="panel-sm-logo-block" data-toggle="modal" data-target="#walletModal">
+
             <img src="./img/wallet.png" alt="">
             <!-- <img src="./img/menu-sm-oval.png" alt=""> -->
         </div>
 
         <img src="./img/menu-sm-bg.png" alt="background image" class="panel-sm-bg-img">
         <ul class="panel-sm-list col" data-toggle="modal" data-target="#topNavModal">
-            <li class="panel-sm-item" >$gold: <span id="user-gold-balance-mobile">0</span></li>
+            <li class="panel-sm-item">$gold: <span id="user-gold-balance-mobile">0</span></li>
             <li class="panel-sm-item">nobles:<span>0</span></li>
             <li class="panel-sm-item">land:<span>0</span></li>
-            <li class="panel-sm-item" >$BAYC <span id="user-bayc-balance-mobile">0</span></li>
+            <li class="panel-sm-item">$BAYC <span id="user-bayc-balance-mobile">0</span></li>
         </ul>
     </section>
 
     <section class="menu">
         <h2 class="game-menu-title">menu</h2>
         <ul class="game-menu-list">
-            <li class="game-menu-item"><button type="button" onclick="refreshData()" class="game-menu-btn" data-toggle="modal"
-                    data-target="#leaderboardModal">leaders board</button></li>
+            <li class="game-menu-item"><button type="button" onclick="refreshData()" class="game-menu-btn"
+                    data-toggle="modal" data-target="#leaderboardModal">leaders board</button></li>
             <li class="game-menu-item"><a href="#" class="game-menu-btn">faq</a></li>
             <li class="game-menu-item"><a href="whitepaper.html" class="game-menu-btn">white paper</a></li>
         </ul>
@@ -160,20 +161,12 @@
                 <p class="detail-count">50,000</p>
             </div>
         </div> -->
-        <button
-          onclick="mintOneApe()"
-          id="mint-button"
-          class="btn-decoration order-2"
-        >
-          Mint
+
+        <button class="btn-decoration order-2" data-toggle="modal"
+            data-target="#mintModal">
+            Mint
         </button>
-        <button
-          onclick="mintWithBAYC()"
-          id="mint-bayc-button"
-          class="btn-decoration order-2"
-        >
-          Mint with BAYC
-        </button>
+        
         <div class="blockchain-description-text">Main Network (0xC78D42C78D41a...)</div>
         </div>
 
@@ -232,7 +225,7 @@
             </div>
             <div class="container-status-bord-carousel">
                 <div id="miners-list" class="owl-carousel status-bord-carousel">
-                   
+
                 </div>
             </div>
         </div>
@@ -243,7 +236,7 @@
             <h2 class="personage-title">BAD APES: <span id="user-badapes-count">0</span></h2>
             <!-- <div class="personage_carousel-block"> -->
             <div id="bad-apes-list" class="owl-carousel personage_carousel">
-                
+
 
             </div>
             <!-- </div> -->
@@ -386,6 +379,34 @@
         </div>
     </div>
 
+    <div class="modal fade" id="mintModal" tabindex="-1" role="dialog" aria-labelledby="newApeModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modale-new-app mint-modal">
+                <h4 id="minting-title" class="modal-title">Mint a new Ape</h4>
+                <div class="icon">
+                    <img id="mint-img" src="./img/tp-1.png" alt="">
+                </div>
+                <div >
+                    <div>
+                        <h6 >Mint with BNB</h6>
+                        <button onclick="mintOneApe()" id="mint-button" class="btn-decoration ">
+                            0.6942 BNB
+                        </button>
+                    </div>
+                    <div>
+                        <h6 >Mint with BAYC</h6>
+                    <button onclick="mintWithBAYC()" id="mint-bayc-button" class="btn-decoration ">
+                        Mint with BAYC
+                    </button>
+                </div>
+                </div>
+
+                <button type="button" class="btn-x" data-dismiss="modal"><img src="./img/x.svg" alt=""></button>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="ApeDetailsModal" tabindex="-1" role="dialog" aria-labelledby="newApeModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -413,8 +434,8 @@
                 <p class="modal-description">Do you want to continue?</p>
                 <div class="btn-blok">
                     <button type="button" class="btn-decoration btn-no" data-dismiss="modal">no</button>
-                    <button onclick="handleUnstake()" type="button" class="btn-decoration" data-dismiss="modal" data-toggle="modal"
-                    >Yes, Unstake</button>
+                    <button onclick="handleUnstake()" type="button" class="btn-decoration" data-dismiss="modal"
+                        data-toggle="modal">Yes, Unstake</button>
                 </div>
                 <button type="button" class="btn-x" data-dismiss="modal"><img src="./img/x.svg" alt=""></button>
 
@@ -427,7 +448,7 @@
             <div class="modal-content modal-claim">
 
                 <h4 class="modal-title">Claim Gold</h4>
-               
+
                 <div class="count-block ">
                     <div class="bounty-count">20% Bounty</div>
                     <div id="user-gold-fee" class="gold-count">0</div>
@@ -436,7 +457,8 @@
                 <div class="count-block">
                     <div id="user-gold-claimable" class="gold-count">0</div>
                 </div>
-                <button type="button" class="btn-decoration" data-dismiss="modal" onclick="claimGold()">Claim Gold</button>
+                <button type="button" class="btn-decoration" data-dismiss="modal" onclick="claimGold()">Claim
+                    Gold</button>
                 <button type="button" class="btn-x" data-dismiss="modal"><img src="./img/x.svg" alt=""></button>
 
             </div>
@@ -496,15 +518,15 @@
                             <h3 class="tp-card-title">BAD APES</h3>
                             <table class="tp-card-info">
                                 <tr class="tp-card-row">
-                                   <td class="tp-card-text">MINTED</td>
+                                    <td class="tp-card-text">MINTED</td>
                                     <td id="minted-bad-apes" class="tp-card-text">0</td>
                                 </tr>
                                 <tr class="tp-card-row">
-                                     <td class="tp-card-text">STAKED</td>
+                                    <td class="tp-card-text">STAKED</td>
                                     <td id="staked-bad-apes" class="tp-card-text">0</td>
                                 </tr>
                                 <tr class="tp-card-row">
-                                  <td class="tp-card-text">STOLEN</td>
+                                    <td class="tp-card-text">STOLEN</td>
                                     <td class="tp-card-text">0</td>
                                 </tr>
                             </table>

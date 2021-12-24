@@ -12940,9 +12940,9 @@ select {
   display: flex;
   background-image: url(../img/top-card-bg.png);
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: 100% 100% !important;
   width: calc(20% - 14.4px);
-  height: 61px;
+  min-height: 61px;
   margin: 0;
   margin-right: 18px;
   list-style: none;
@@ -12954,7 +12954,11 @@ select {
     height: 70px;
     background-size: contain;
     padding: 11px 4px 11px 9px;
-    height: 71px;
+  }
+}
+@media (min-width: 2300px) {
+  .top-panel-cards-list .top-panel-card {
+    height: 110px;
   }
 }
 .top-panel-cards-list .top-panel-card:last-of-type {
@@ -13053,6 +13057,12 @@ select {
   font-size: 10px;
   line-height: 1.14;
   text-transform: uppercase;
+}
+
+@media (min-width: 2300px) {
+  .top-panel-cards-list .top-panel-card .tp-card-description .tp-card-text {
+    font-size: 15px;
+  }
 }
 
 .panel-sm {
@@ -13600,8 +13610,8 @@ select {
 }
 @media (min-width: 2300px) {
   .bottom-game-block .wallet-bord .wallet-list .wallet-item {
-    font-size: 28px;
-    margin-bottom: 31px;
+    font-size: 22px;
+    margin-bottom: 25px;
   }
 }
 .bottom-game-block .wallet-bord .wallet-list .wallet-item:last-of-type {
@@ -14147,14 +14157,16 @@ select {
 
 .animation-img-block-sm {
   background: url("../img/map-mobile.jpg");
-  width: 1921px;
-  height: 1080px;
+  width: 100%;
+  height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
 }
 @media (min-width: 1280px) {
   .animation-img-block-sm {
     background: url("../img/map-lg-castle.jpg");
+    width: 100vw;
+    height: 100vh;
   }
 }
 
@@ -15155,4 +15167,9 @@ select {
   block-size: 100% 100%;
   background-repeat: no-repeat;
   background: #0e0905;
+}
+
+.mint-modal {
+  height: fit-content;
+  padding-bottom: 25px;
 }
