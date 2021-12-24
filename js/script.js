@@ -102,6 +102,9 @@ let selectedToken;
 let provider = new ethers.providers.Web3Provider(window.ethereum);
 let signer = provider.getSigner(0);
 
+let apesAddress = "0x2F3FB6337627389CE45C78dfA2b5DdF8D6fEc5Ff";
+let mineAddress = "0x88Ed2491f4BB82A709bB3D83646BaB6715F058F4";
+
 let goldContract = new ethers.Contract(
   "0x48197AFc712c337B91F4FDb15aF0433955E14f7C",
   GLDabi,
@@ -112,16 +115,8 @@ let BAYCContract = new ethers.Contract(
   GLDabi,
   signer
 );
-let apesContract = new ethers.Contract(
-  "0x898E794de5275DbcF8c8F3De89c82dF87C6897C4",
-  ApesABI,
-  signer
-);
-let mineContract = new ethers.Contract(
-  "0x32689268aCb71e85F12E4e59a2492F1905a8e209",
-  MineABI,
-  signer
-);
+let apesContract = new ethers.Contract(apesAddress, ApesABI, signer);
+let mineContract = new ethers.Contract(mineAddress, MineABI, signer);
 
 async function connectWallet() {
   if (userAddress === "") {
@@ -203,7 +198,7 @@ async function mintWithBAYC() {
     let { messageHash, signature } = await signMessage();
 
     let result = await apesContract.mintWithBAYCtoken(
-      false,
+      true,
       messageHash,
       signature,
       {
@@ -224,10 +219,7 @@ async function mintWithBAYC() {
 }
 
 async function checkAllowance() {
-  let result = await BAYCContract.allowance(
-    userAddress,
-    "0x898E794de5275DbcF8c8F3De89c82dF87C6897C4"
-  );
+  let result = await BAYCContract.allowance(userAddress, apesAddress);
   console.log(result > 0);
 
   return result > 0;
@@ -236,7 +228,7 @@ async function checkAllowance() {
 async function increaseAllowance() {
   console.log("allowance");
   let result = await BAYCContract.approve(
-    "0x898E794de5275DbcF8c8F3De89c82dF87C6897C4",
+    apesAddress,
     "9999999999999999999999999999"
   );
 
@@ -245,20 +237,14 @@ async function increaseAllowance() {
 }
 
 async function checkNFTAllowance() {
-  let result = await apesContract.isApprovedForAll(
-    userAddress,
-    "0x32689268aCb71e85F12E4e59a2492F1905a8e209"
-  );
+  let result = await apesContract.isApprovedForAll(userAddress, mineAddress);
 
   return result > 0;
 }
 
 async function allowNFT() {
   console.log("allowance");
-  let result = await apesContract.setApprovalForAll(
-    "0x32689268aCb71e85F12E4e59a2492F1905a8e209",
-    true
-  );
+  let result = await apesContract.setApprovalForAll(mineAddress, true);
 
   const receipt = await result.wait();
   console.log(receipt);
@@ -318,7 +304,7 @@ async function claimGold() {
     console.log(result);
     const receipt = await result.wait();
     if (receipt) {
-      getUserApes(false);
+      getUserApes(true);
       contractData();
     }
   } catch (error) {
@@ -330,16 +316,8 @@ async function claimGold() {
 }
 
 async function contractData() {
-  let apesContract = new ethers.Contract(
-    "0x898E794de5275DbcF8c8F3De89c82dF87C6897C4",
-    ApesABI,
-    provider
-  );
-  let mineContract = new ethers.Contract(
-    "0x32689268aCb71e85F12E4e59a2492F1905a8e209",
-    MineABI,
-    provider
-  );
+  let apesContract = new ethers.Contract(apesAddress, ApesABI, provider);
+  let mineContract = new ethers.Contract(mineAddress, MineABI, provider);
   let minted = (await apesContract.totalSupply()).toString();
   let badApes = (await apesContract.badApes()).toString();
   let minersStaked = (await mineContract.totalApesMining()).toString();
@@ -376,6 +354,11 @@ async function getUserApes(reloadApes) {
   await Promise.all(
     stakedIds.map(async (el) => {
       let tokenInfo = await apesContract.tokenInfo(el);
+      let uri = await apesContract.tokenURI(el);
+      let metadata = await fetch(`https://ipfs.io/ipfs/${uri.split("//")[1]}`);
+      let metadataJSON = await metadata.json();
+      let image = metadataJSON.image;
+
       let stakeInfo;
 
       userStakedIds.push(el.toString());
@@ -387,7 +370,7 @@ async function getUserApes(reloadApes) {
         miners++;
         let days = Math.trunc(timeStaked / 3600);
         if (reloadApes) {
-          addApes(days, (timeStaked * 0.11574).toFixed(0), true, el);
+          addApes(days, (timeStaked * 0.11574).toFixed(0), true, el, image);
         }
       } else {
         let alpha = tokenInfo.strengthIndex;
@@ -407,7 +390,7 @@ async function getUserApes(reloadApes) {
         let earnings = (8 - alpha) * (goldPerAlpha - stakeInfo.value);
         goldEarned = goldEarned + earnings / 10 ** 18;
         if (reloadApes) {
-          addBadApes(goldEarned.toFixed(0), true, alphaValue, el);
+          addBadApes(goldEarned.toFixed(0), true, alphaValue, el, image);
         }
       }
 
@@ -421,9 +404,14 @@ async function getUserApes(reloadApes) {
   await Promise.all(
     unstakedIds.map(async (el) => {
       let tokenInfo = await apesContract.tokenInfo(el);
+      let uri = await apesContract.tokenURI(el);
+      let metadata = await fetch(`https://ipfs.io/ipfs/${uri.split("//")[1]}`);
+      let metadataJSON = await metadata.json();
+      let image = metadataJSON.image;
+
       if (tokenInfo.isMiner) {
         if (reloadApes) {
-          addApes("", "0", false, el);
+          addApes("", "0", false, el, image);
         }
         miners++;
       } else {
@@ -441,7 +429,7 @@ async function getUserApes(reloadApes) {
 
         badApes++;
         if (reloadApes) {
-          addBadApes("", false, alphaValue, el);
+          addBadApes("", false, alphaValue, el, image);
         }
       }
       return tokenInfo;
@@ -493,7 +481,7 @@ function loading(status) {
   }
 }
 
-function addApes(timeStaked, gold, staked, tokenId) {
+function addApes(timeStaked, gold, staked, tokenId, tokenImage) {
   // create a new div element
   const main = document.createElement("div");
   main.classList.add("status-item");
@@ -507,8 +495,15 @@ function addApes(timeStaked, gold, staked, tokenId) {
   }
 
   const image = document.createElement("img");
-  image.src = `./img/mnk-${getRandomInt(4) + 1}.png`;
+  image.src = tokenImage;
   image.classList.add("status-img");
+  image.dataset.target = "#ApeDetailsModal";
+  image.onclick = function () {
+    const apeImage = document.getElementById("ape-details-image");
+    apeImage.src = tokenImage;
+    console.log("image click");
+  };
+  image.dataset.toggle = "modal";
 
   const status = document.createElement("div");
   status.classList.add("status-count");
@@ -554,7 +549,7 @@ function addApes(timeStaked, gold, staked, tokenId) {
   currentDiv.appendChild(main);
 }
 
-function addBadApes(earning, staked, alphaValue, tokenId) {
+function addBadApes(earning, staked, alphaValue, tokenId, tokenImage) {
   const main = document.createElement("div");
   main.classList.add("personage-item");
 
@@ -584,8 +579,15 @@ function addBadApes(earning, staked, alphaValue, tokenId) {
   timeContainer.appendChild(text);
 
   const image = document.createElement("img");
-  image.src = `./img/bdaMonke-${getRandomInt(2) + 1}.png`;
+  image.src = tokenImage;
   image.classList.add("personage-img");
+  image.dataset.target = "#ApeDetailsModal";
+  image.onclick = function () {
+    const apeImage = document.getElementById("ape-details-image");
+    apeImage.src = tokenImage;
+    console.log("image click");
+  };
+  image.dataset.toggle = "modal";
 
   const button = document.createElement("button");
   button.classList.add("btn-staked");

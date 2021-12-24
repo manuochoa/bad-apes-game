@@ -14646,11 +14646,13 @@ select {
 .modale-new-app {
   position: relative;
   background-image: url(../img/modal-Unlock-new-ape.png);
-  padding: 30px 39px 29px;
+  /* padding: 30px 39px 29px; */
   width: 263px;
   height: 263px;
   max-width: 100%;
-  padding: 51px 35px;
+  /* padding: 51px 35px; */
+  display: grid;
+  place-items: center;
 }
 @media (min-width: 992px) {
   .modale-new-app {
@@ -14661,7 +14663,7 @@ select {
     justify-content: center;
   }
 }
-.modale-new-app::before {
+/* .modale-new-app::before {
   content: "";
   background-image: url(../img/banana.png);
   position: absolute;
@@ -14674,7 +14676,7 @@ select {
   background-size: 100% 100%;
   -webkit-transform: translate(-50%, 0);
   transform: translate(-50%, 0);
-}
+} */
 @media (min-width: 992px) {
   .modale-new-app::before {
     top: 31px;
@@ -14733,6 +14735,30 @@ select {
     width: 122px;
     height: 122px;
   }
+}
+
+.modale-new-app .details-icon {
+  /* background-image: url(../img/noble-bg.png); */
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-color: transparent;
+  width: 80%;
+  height: 80%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: none;
+  border-radius: 50%;
+}
+
+.modale-new-app .details-icon img {
+  border-radius: 50%;
 }
 
 .modal-unstake {
