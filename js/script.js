@@ -103,8 +103,10 @@ let BAYCprice;
 let provider = new ethers.providers.Web3Provider(window.ethereum);
 let signer = provider.getSigner(0);
 
-let apesAddress = "0xde9304cC3c826D9f485e76588ebD8bd66e46034a";
-let mineAddress = "0x2c84FAE9F5D069bd62DBdA51b385Bb348D8c9A20";
+let apesAddress = "0x3e4ab707a3608713f7bC53a629BE3BEf9Ee5bA02";
+// let apesAddress = "0xde9304cC3c826D9f485e76588ebD8bd66e46034a";
+let mineAddress = "0x9bA77F6043f1a74af8C0598782F7C28aFA42286F";
+// let mineAddress = "0x2c84FAE9F5D069bd62DBdA51b385Bb348D8c9A20";
 
 let goldContract = new ethers.Contract(
   "0x48197AFc712c337B91F4FDb15aF0433955E14f7C",
@@ -352,6 +354,7 @@ async function handleUnstake() {
 }
 
 function preUnstake(tokenId) {
+  console.log(tokenId.toString());
   selectedToken = tokenId;
 }
 
@@ -412,6 +415,13 @@ async function getUserApes(reloadApes) {
   let GLDbalance = await goldContract.balanceOf(userAddress);
 
   userApes.staked = stakedIds;
+
+  console.log(
+    stakedIds.map((el) => {
+      return el.toString();
+    }),
+    "staked"
+  );
 
   await Promise.all(
     stakedIds.map(async (el) => {
