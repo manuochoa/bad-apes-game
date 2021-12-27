@@ -12887,6 +12887,13 @@ select {
     background-repeat: repeat-x;
   }
 }
+
+@media (min-width: 2300px) {
+  .top-panel {
+    background-size: contain;
+  }
+}
+
 @media (min-width: 1200px) {
   .top-panel {
     display: -webkit-box;
@@ -12958,7 +12965,7 @@ select {
 }
 @media (min-width: 2300px) {
   .top-panel-cards-list .top-panel-card {
-    height: 110px;
+    height: 120px;
   }
 }
 .top-panel-cards-list .top-panel-card:last-of-type {
@@ -13348,6 +13355,12 @@ select {
     top: 130px;
   }
 }
+@media (min-width: 2300px) {
+  .blockchain-block {
+    position: fixed;
+    top: 180px;
+  }
+}
 .blockchain-block .btn-decoration {
   font-size: 12px;
   padding: 8px 13px;
@@ -13531,6 +13544,15 @@ select {
     padding: 20px 29px 37px 38px;
   }
 }
+
+@media (min-width: 2300px) {
+  .bottom-game-block .wallet-bord {
+    width: 350px;
+    height: 450px;
+    background-size: contain;
+  }
+}
+
 .bottom-game-block .wallet-bord .wallet-noble-btn {
   position: relative;
   width: 78px;
@@ -13545,6 +13567,15 @@ select {
   padding: 0;
   margin-bottom: 33px;
 }
+
+@media (min-width: 2300px) {
+  .bottom-game-block .wallet-bord .wallet-noble-btn {
+    width: 115px;
+    height: 115px;
+    top: 2px;
+  }
+}
+
 .bottom-game-block .wallet-bord .wallet-noble-btn img {
   position: absolute;
   display: block;
@@ -14278,7 +14309,12 @@ select {
 }
 @media (min-width: 1200px) {
   .btn-x {
-    display: none;
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    left: unset;
+    bottom: unset;
+    transform: scale(0.5);
   }
 }
 

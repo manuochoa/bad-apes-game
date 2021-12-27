@@ -151,7 +151,7 @@ async function mintOneApe() {
   loading("start");
   const mintImage = document.getElementById("mint-img");
   const title = document.getElementById("minting-title");
-  if (userApes.staked.length + userApes.unstaked.length > 5) {
+  if (userApes.staked.length + userApes.unstaked.length >= 5) {
     loading("end");
     return window.alert("MAX 5 per wallet limit set");
   }
@@ -191,7 +191,7 @@ async function mintWithBAYC() {
   const mintImage = document.getElementById("mint-img");
   const title = document.getElementById("minting-title");
   try {
-    if (userApes.staked.length + userApes.unstaked.length > 5) {
+    if (userApes.staked.length + userApes.unstaked.length >= 5) {
       loading("end");
       return window.alert("MAX 5 per wallet limit set");
     }
