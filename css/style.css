@@ -14744,7 +14744,7 @@ select {
 }
 @media (min-width: 992px) {
   .modale-new-app .modal-title {
-    font-size: 36px;
+    font-size: 25px;
     margin-top: 20px;
   }
 }

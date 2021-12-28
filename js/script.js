@@ -95,7 +95,6 @@ let userApes = {
   staked: [],
   unstaked: [],
 };
-let userStakedIds = [];
 let isWaitlisted = false;
 let selectedToken;
 let BAYCprice;
@@ -171,7 +170,7 @@ async function mintOneApe() {
       gasLimit: 500000,
       value: ethers.utils.parseEther("0.69420"),
     });
-    title.innerHTML = "Minting...";
+    title.innerHTML = "We are minting your Ape";
     mintImage.src = "./img/mint-gif.gif";
 
     console.log(result);
@@ -220,7 +219,7 @@ async function mintWithBAYC() {
         gasLimit: 600000,
       }
     );
-    title.innerHTML = "Minting...";
+    title.innerHTML = "We are minting your Ape";
     mintImage.src = "./img/mint-gif.gif";
 
     console.log(result);
@@ -254,9 +253,10 @@ async function newApeImage(receipt) {
       document.getElementById("mint-img").src = image;
 
       if (tokenInfo.isMiner) {
-        document.getElementById("minting-title").innerHTML = "Got a Miner";
+        document.getElementById("minting-title").innerHTML = "You got a Miner";
       } else {
-        document.getElementById("minting-title").innerHTML = "Got a Bad Ape";
+        document.getElementById("minting-title").innerHTML =
+          "You got a Bad Ape";
       }
     }
   });
@@ -317,9 +317,13 @@ async function handleStake(tokenId) {
     if (!(await checkNFTAllowance())) {
       await allowNFT();
     }
-    let result = await mineContract.addManyToMineAndPack(userAddress, [
-      tokenId,
-    ]);
+    let result = await mineContract.addManyToMineAndPack(
+      userAddress,
+      [tokenId],
+      {
+        gasLimit: 300000,
+      }
+    );
     console.log(result);
     const receipt = await result.wait();
     if (receipt) {
@@ -337,7 +341,10 @@ async function handleUnstake() {
   try {
     let result = await mineContract.claimManyFromMineAndPack(
       [selectedToken],
-      true
+      true,
+      {
+        gasLimit: 300000,
+      }
     );
     console.log(result);
     const receipt = await result.wait();
@@ -361,8 +368,11 @@ function preUnstake(tokenId) {
 async function claimGold() {
   try {
     let result = await mineContract.claimManyFromMineAndPack(
-      userStakedIds,
-      false
+      userApes.staked,
+      false,
+      {
+        gasLimit: 250000,
+      }
     );
     console.log(result);
     const receipt = await result.wait();
@@ -433,8 +443,6 @@ async function getUserApes(reloadApes) {
       // let image = metadataJSON.image;
 
       let stakeInfo;
-
-      userStakedIds.push(el.toString());
 
       if (tokenInfo.isMiner) {
         stakeInfo = await mineContract.mine(el);
