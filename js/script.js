@@ -268,7 +268,8 @@ async function getApeData(tokenId) {
   let metadata = await fetch(`https://ipfs.io/ipfs/${uri.split("//")[1]}`);
   let metadataJSON = await metadata.json();
   let image = metadataJSON.image;
-  return { tokenInfo, image };
+  let newImage = `https://ipfs.io/ipfs${image.split("ipfs")[2]}`;
+  return { tokenInfo, image: newImage };
 }
 
 async function checkAllowance() {
