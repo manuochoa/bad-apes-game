@@ -12885,6 +12885,7 @@ select {
     position: fixed;
     background: url("../svg/logo-panel.svg");
     background-repeat: repeat-x;
+    background-size: contain;
   }
 }
 
@@ -12930,6 +12931,7 @@ select {
 @media (min-width: 1280px) {
   .top-panel .top-panel-logo {
     max-width: unset;
+    height: 180px;
   }
 }
 
@@ -12940,6 +12942,7 @@ select {
   display: flex;
   margin: 0;
   padding: 9px 53px 16px 33px;
+  justify-content: space-between;
 }
 .top-panel-cards-list .top-panel-card {
   display: -webkit-box;
@@ -12956,9 +12959,12 @@ select {
   padding: 12px;
 }
 @media (min-width: 1280px) {
+  .top-panel-cards-list {
+    height: 130px;
+  }
   .top-panel-cards-list .top-panel-card {
-    width: 177.41px;
-    height: 70px;
+    /* width: 177.41px; */
+    /* height: 70px; */
     background-size: contain;
     padding: 11px 4px 11px 9px;
   }
@@ -12978,8 +12984,8 @@ select {
   -webkit-box-align: baseline;
   -ms-flex-align: baseline;
   align-items: baseline;
-  width: 44px;
-  height: 44px;
+  /* width: 44px;
+  height: 44px; */
   margin-right: 7px;
   border-radius: 4px;
   overflow: hidden;
@@ -13007,7 +13013,7 @@ select {
 }
 @media (min-width: 1200px) {
   .top-panel-cards-list .top-panel-card .tp-card-description .tp-card-title {
-    font-size: 10px;
+    font-size: 15px;
     line-height: 1.14;
   }
 }
@@ -13061,7 +13067,7 @@ select {
 .top-panel-cards-list .top-panel-card .tp-card-description .tp-card-text {
   font-family: "Roboto";
   font-weight: bold;
-  font-size: 10px;
+  font-size: 13px;
   line-height: 1.14;
   text-transform: uppercase;
 }
@@ -13244,7 +13250,7 @@ select {
 }
 @media (min-width: 1280px) {
   .menu {
-    top: 160px;
+    top: 190px;
     left: 20px;
     width: 132px;
     height: 160px;
@@ -13352,13 +13358,13 @@ select {
 @media (min-width: 1280px) {
   .blockchain-block {
     position: fixed;
-    top: 130px;
+    top: 180px;
   }
 }
 @media (min-width: 2300px) {
   .blockchain-block {
     position: fixed;
-    top: 180px;
+    top: 240px;
   }
 }
 .blockchain-block .btn-decoration {
@@ -13673,7 +13679,7 @@ select {
   .personage-bord {
     position: relative;
     width: 510px;
-    height: 192px;
+    height: 220px;
     background-size: 100% 100%;
     padding: 18px 23px 25px 28px;
     display: block !important;
@@ -13684,6 +13690,7 @@ select {
   font-family: "Roboto";
   font-weight: bold;
   font-size: 11px;
+  margin-top: 5px;
   line-height: 1.2;
   text-align: left;
   color: #f2f2f2;
@@ -15208,4 +15215,53 @@ select {
 .mint-modal {
   height: fit-content;
   padding-bottom: 25px;
+}
+
+.btn-staked {
+  background-color: transparent;
+  font-family: "Roboto";
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 1.16;
+  text-align: center;
+  color: #fff8bd;
+  text-shadow: 0 -2px 0 #472a08, 0 -2px 0 #472a08, 0 2px 0 #472a08,
+    0 2px 0 #472a08, -2px 0 0 #472a08, 2px 0 0 #472a08, -2px 0 0 #472a08,
+    2px 0 0 #472a08, -1px -2px 0 #472a08, 1px -2px 0 #472a08, -1px 2px 0 #472a08,
+    1px 2px 0 #472a08, -2px -1px 0 #472a08, 2px -1px 0 #472a08,
+    -2px 1px 0 #472a08, 2px 1px 0 #472a08, -2px -2px 0 #472a08,
+    2px -2px 0 #472a08, -2px 2px 0 #472a08, 2px 2px 0 #472a08,
+    -2px -2px 0 #472a08, 2px -2px 0 #472a08, -2px 2px 0 #472a08,
+    2px 2px 0 #472a08;
+  width: 100%;
+  border: none;
+}
+
+.personage_carousel .btn-decoration {
+  position: relative;
+  font-family: "Roboto";
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 1;
+  color: #ffface;
+  text-shadow: 0 -2px 0 #472a08, 0 -2px 0 #472a08, 0 2px 0 #472a08,
+    0 2px 0 #472a08, -2px 0 0 #472a08, 2px 0 0 #472a08, -2px 0 0 #472a08,
+    2px 0 0 #472a08, -1px -2px 0 #472a08, 1px -2px 0 #472a08, -1px 2px 0 #472a08,
+    1px 2px 0 #472a08, -2px -1px 0 #472a08, 2px -1px 0 #472a08,
+    -2px 1px 0 #472a08, 2px 1px 0 #472a08, -2px -2px 0 #472a08,
+    2px -2px 0 #472a08, -2px 2px 0 #472a08, 2px 2px 0 #472a08,
+    -2px -2px 0 #472a08, 2px -2px 0 #472a08, -2px 2px 0 #472a08,
+    2px 2px 0 #472a08;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: none;
+  background-image: url(../img/btn-yl.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  padding: 12px 15px;
+  width: 100%;
+  font-size: 10px;
+  padding: 4px;
+  min-width: unset;
+  font-size: 13px;
 }

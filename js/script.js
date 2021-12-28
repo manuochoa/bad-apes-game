@@ -689,13 +689,16 @@ function addBadApes(earning, staked, alphaValue, tokenId, tokenImage) {
   image.dataset.toggle = "modal";
 
   const button = document.createElement("button");
-  button.classList.add("btn-staked");
+  button.setAttribute("id", `token-${tokenId}`);
   if (staked) {
+    button.classList.add("btn-staked");
     button.innerHTML = "unstake";
     button.onclick = function () {
-      handleUnstake(tokenId);
+      preUnstake(tokenId);
+      handleUnstake();
     };
   } else {
+    button.classList.add("btn-decoration");
     button.innerHTML = "stake";
     button.onclick = function () {
       handleStake(tokenId);
@@ -704,7 +707,7 @@ function addBadApes(earning, staked, alphaValue, tokenId, tokenImage) {
 
   // imgContainer.appendChild(timeContainer);
   imgContainer.appendChild(image);
-  // imgContainer.appendChild(button);
+  imgContainer.appendChild(button);
 
   main.appendChild(alpha);
   main.appendChild(imgContainer);
