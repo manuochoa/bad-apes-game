@@ -317,6 +317,10 @@ async function handleStake(tokenId) {
     if (!(await checkNFTAllowance())) {
       await allowNFT();
     }
+
+    document.getElementById(`token-${tokenId}`).innerHTML = "Staking...";
+    document.getElementById(`token-${tokenId}`).disabled = true;
+
     let result = await mineContract.addManyToMineAndPack(
       userAddress,
       [tokenId],
@@ -331,6 +335,8 @@ async function handleStake(tokenId) {
       contractData();
     }
   } catch (error) {
+    document.getElementById(`token-${tokenId}`).innerHTML = "STAKE";
+    document.getElementById(`token-${tokenId}`).disabled = false;
     console.log(error);
     if (error.data.message) {
       window.alert(error.data.message);
@@ -339,6 +345,9 @@ async function handleStake(tokenId) {
 }
 async function handleUnstake() {
   try {
+    document.getElementById(`token-${selectedToken}`).innerHTML =
+      "Unstaking...";
+    document.getElementById(`token-${selectedToken}`).disabled = true;
     let result = await mineContract.claimManyFromMineAndPack(
       [selectedToken],
       true,
@@ -353,6 +362,8 @@ async function handleUnstake() {
       contractData();
     }
   } catch (error) {
+    document.getElementById(`token-${selectedToken}`).innerHTML = "unstake";
+    document.getElementById(`token-${selectedToken}`).disabled = false;
     console.log(error, "error");
     if (error.data.message) {
       window.alert(error.data.message);
@@ -608,6 +619,7 @@ function addApes(timeStaked, gold, staked, tokenId, tokenImage) {
   status.appendChild(text);
 
   const button = document.createElement("button");
+  button.setAttribute("id", `token-${tokenId}`);
   if (!staked) {
     button.classList.add("btn-decoration");
     button.innerHTML = "stake";
