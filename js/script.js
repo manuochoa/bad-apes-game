@@ -483,7 +483,13 @@ async function getUserApes(reloadApes) {
         let earnings = (8 - alpha) * (goldPerAlpha - stakeInfo.value);
         goldEarned = goldEarned + earnings / 10 ** 18;
         if (reloadApes) {
-          addBadApes(goldEarned.toFixed(0), true, alphaValue, el, image);
+          addBadApes(
+            (earnings / 10 ** 18).toFixed(0),
+            true,
+            alphaValue,
+            el,
+            image
+          );
         }
       }
 
@@ -664,6 +670,7 @@ function addBadApes(earning, staked, alphaValue, tokenId, tokenImage) {
   timeContainer.classList.add("status-count");
 
   const goldIcon = document.createElement("img");
+  goldIcon.classList.add("gold-img");
   goldIcon.src = "./img/gold.png";
 
   const text = document.createElement("p");
@@ -692,6 +699,7 @@ function addBadApes(earning, staked, alphaValue, tokenId, tokenImage) {
   button.setAttribute("id", `token-${tokenId}`);
   if (staked) {
     button.classList.add("btn-staked");
+    button.classList.add("staked-bad-ape");
     button.innerHTML = "unstake";
     button.onclick = function () {
       preUnstake(tokenId);
@@ -705,7 +713,7 @@ function addBadApes(earning, staked, alphaValue, tokenId, tokenImage) {
     };
   }
 
-  // imgContainer.appendChild(timeContainer);
+  imgContainer.appendChild(timeContainer);
   imgContainer.appendChild(image);
   imgContainer.appendChild(button);
 

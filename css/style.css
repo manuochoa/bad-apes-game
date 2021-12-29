@@ -12845,8 +12845,8 @@ select {
   .main-game {
     z-index: 1;
     position: absolute;
-    width: 1921px;
-    height: 1080px;
+    /* width: 1921px;
+    height: 1080px; */
     overflow: initial;
     display: block;
   }
@@ -13939,6 +13939,7 @@ select {
     -2px -2px 0 #505050, 2px -2px 0 #505050, -2px 2px 0 #505050,
     2px 2px 0 #505050;
 }
+
 @media (min-width: 1200px) {
   .status-bord .status-bord-info .status-description-block .status-count {
     font-size: 15px;
@@ -15264,4 +15265,33 @@ select {
   padding: 4px;
   min-width: unset;
   font-size: 13px;
+}
+
+.personage-img-block .status-count {
+  position: absolute;
+  display: flex;
+  top: 28px;
+  text-align: center;
+  color: #ffffff;
+  margin: 0 auto 5px;
+  padding: 2px 8px 1px;
+  background: #828282;
+  border-radius: 4px;
+}
+
+.personage-img-block .status-count .gold-img {
+  max-width: 15px;
+  max-height: 15px;
+  margin-right: 5px;
+}
+.personage-img-block .status-count p {
+  font-size: 13px;
+  margin-bottom: 0px;
+}
+
+.staked-bad-ape {
+  margin: 0 auto 5px;
+  padding: 2px 8px 1px;
+  background: #828282;
+  border-radius: 4px;
 }
