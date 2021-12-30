@@ -150,7 +150,7 @@ function disconnectWallet() {
   userAddress = "";
   window.localStorage.removeItem("userAddress");
   document.getElementById("connect-button").innerHTML = "CONNECT WALLET";
-  document.getElementById("mint-button").remove();
+  document.getElementById("mint-modal-button").remove();
   document.getElementById("disconnect-button").remove();
 }
 
@@ -384,22 +384,26 @@ async function handleUnstake() {
 }
 
 async function preUnstake(tokenId, type) {
-  if (type === "miner") {
-    let stakeInfo = await mineContract.mine(tokenId);
-    let timeStaked = Date.now() / 1000 - stakeInfo.value;
-    let goldReserves = timeStaked * 0.11574;
+  $(".toast").toast();
+  $("#element").toast("show");
+  // if (type === "miner") {
+  //   let stakeInfo = await mineContract.mine(tokenId);
+  //   let timeStaked = Date.now() / 1000 - stakeInfo.value;
+  //   let goldReserves = timeStaked * 0.11574;
 
-    if (goldReserves < 20000) {
-      return window.alert("You need 2 days worth of $GLD");
-    } else {
-      $("#unstakeModal").modal("show");
-    }
-  }
+  //   if (goldReserves < 20000) {
+  //     return window.alert("You need 2 days worth of $GLD");
+  //   } else {
+  //     $("#unstakeModal").modal("show");
+  //   }
+  // }
   console.log(tokenId.toString());
   selectedToken = tokenId;
 }
 
 async function claimGold() {
+  document.getElementById(`claim-gold-button`).innerHTML = "claiming...";
+  document.getElementById(`claim-gold-button`).disabled = true;
   try {
     let result = await mineContract.claimManyFromMineAndPack(
       userApes.staked,
@@ -411,15 +415,25 @@ async function claimGold() {
     console.log(result);
     const receipt = await result.wait();
     if (receipt) {
+      document.getElementById(`claim-gold-button`).innerHTML = "Success!";
       getUserApes(true);
       contractData();
     }
   } catch (error) {
     console.log(error, "error");
-    if (error.data.message) {
+    document.getElementById(`claim-gold-button`).innerHTML = "Claim";
+    document.getElementById(`claim-gold-button`).disabled = false;
+    if (error.data?.message) {
       window.alert(error.data.message);
+    } else if (error.message) {
+      window.alert(error.message);
     }
   }
+}
+
+function setBackClaimButton() {
+  document.getElementById(`claim-gold-button`).innerHTML = "Claim";
+  document.getElementById(`claim-gold-button`).disabled = false;
 }
 
 async function contractData() {
@@ -739,7 +753,7 @@ function addBadApes(earning, staked, alphaValue, tokenId, tokenImage) {
 
 function addMintButton() {
   const button = document.createElement("button");
-  button.setAttribute("id", `mint-button`);
+  button.setAttribute("id", `mint-modal-button`);
   button.classList.add("btn-decoration");
   button.classList.add("order-2");
   button.dataset.target = "#mintModal";

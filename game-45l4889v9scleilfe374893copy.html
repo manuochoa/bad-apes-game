@@ -22,6 +22,21 @@
 
     <section class="top-panel">
 
+        
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img src="..." class="rounded me-2" alt="...">
+        <strong class="me-auto">Bootstrap</strong>
+        <small>11 mins ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Hello, world! This is a toast message.
+      </div>
+    </div>
+  </div>
+
         <img src="./svg/logo-ba.svg" alt="" class="top-panel-logo">
         <ul class="top-panel-cards-list col">
             <li class="top-panel-card">
@@ -221,7 +236,8 @@
                     <div class="status-title">CAN CLAIM</div>
                     <div class="status-count">0</div>
                 </div>
-                <button class="btn-decoration" data-toggle="modal" data-target="#claimModal">CLAIM</button>
+                <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
+                <button onclick="setBackClaimButton()" class="btn-decoration" data-toggle="modal" data-target="#claimModal">CLAIM</button>
             </div>
             <div class="container-status-bord-carousel">
                 <div id="miners-list" class="owl-carousel status-bord-carousel">
@@ -457,7 +473,7 @@
                 <div class="count-block">
                     <div id="user-gold-claimable" class="gold-count">0</div>
                 </div>
-                <button type="button" class="btn-decoration" data-dismiss="modal" onclick="claimGold()">Claim
+                <button type="button" class="btn-decoration" data-dismiss="modal" id="claim-gold-button" onclick="claimGold()">Claim
                     Gold</button>
                 <button type="button" class="btn-x" data-dismiss="modal"><img src="./img/x.svg" alt=""></button>
 
@@ -481,7 +497,9 @@
 
             </div>
         </div>
-    </div>
+    </div>    
+
+
     <div class="modal fade" id="topNavModal" tabindex="-1" role="dialog" aria-labelledby="topNavModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered max-w-620" role="document">
