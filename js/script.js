@@ -98,6 +98,7 @@ let userApes = {
 let isWaitlisted = false;
 let selectedToken;
 let BAYCprice;
+let BAYCbalance;
 
 let provider = new ethers.providers.Web3Provider(window.ethereum);
 let signer = provider.getSigner(0);
@@ -131,7 +132,8 @@ async function connectWallet() {
 
       if (userAddress) {
         contractData();
-        getUserApes(true);
+        await getUserApes(true);
+        addMintButton();
       }
 
       window.localStorage.setItem("userAddress", userAddress);
@@ -142,10 +144,15 @@ async function connectWallet() {
     } catch (error) {
       console.log(error);
     }
-  } else {
-    userAddress = "";
-    document.getElementById("connect-button").innerHTML = "CONNECT WALLET";
   }
+}
+
+function disconnectWallet() {
+  userAddress = "";
+  window.localStorage.removeItem("userAddress");
+  document.getElementById("connect-button").innerHTML = "CONNECT WALLET";
+  document.getElementById("mint-button").remove();
+  document.getElementById("disconnect-button").remove();
 }
 
 async function mintOneApe() {
@@ -188,6 +195,10 @@ async function mintOneApe() {
 }
 
 async function mintWithBAYC() {
+  console.log(BAYCprice, BAYCbalance / 10 ** 18);
+  if (BAYCprice > BAYCbalance / 10 ** 18) {
+    return window.alert("Not enough BAYC to buy");
+  }
   loading("start");
   const mintImage = document.getElementById("mint-img");
   const title = document.getElementById("minting-title");
@@ -361,6 +372,7 @@ async function handleUnstake() {
     if (receipt) {
       getUserApes(true);
       contractData();
+      window.alert("Unstake succesfull");
     }
   } catch (error) {
     document.getElementById(`token-${selectedToken}`).innerHTML = "unstake";
@@ -372,7 +384,18 @@ async function handleUnstake() {
   }
 }
 
-function preUnstake(tokenId) {
+async function preUnstake(tokenId, type) {
+  if (type === "miner") {
+    let stakeInfo = await mineContract.mine(tokenId);
+    let timeStaked = Date.now() / 1000 - stakeInfo.value;
+    let goldReserves = timeStaked * 0.11574;
+
+    if (goldReserves > 20000) {
+      return window.alert("You need 2 days worth of $GLD");
+    } else {
+      $("#unstakeModal").modal("show");
+    }
+  }
   console.log(tokenId.toString());
   selectedToken = tokenId;
 }
@@ -383,7 +406,7 @@ async function claimGold() {
       userApes.staked,
       false,
       {
-        gasLimit: 250000,
+        gasLimit: 100000 * userApes.staked.length,
       }
     );
     console.log(result);
@@ -433,7 +456,7 @@ async function getUserApes(reloadApes) {
   let badApes = 0;
   let stakedIds = await mineContract.getTokensForOwner(userAddress);
   let goldPerAlpha = await mineContract.goldPerAlpha();
-  let BAYCbalance = await BAYCContract.balanceOf(userAddress);
+  BAYCbalance = await BAYCContract.balanceOf(userAddress);
   let GLDbalance = await goldContract.balanceOf(userAddress);
 
   userApes.staked = stakedIds;
@@ -448,11 +471,6 @@ async function getUserApes(reloadApes) {
   await Promise.all(
     stakedIds.map(async (el) => {
       let { tokenInfo, image } = await getApeData(el);
-      // let tokenInfo = await apesContract.tokenInfo(el);
-      // let uri = await apesContract.tokenURI(el);
-      // let metadata = await fetch(`https://ipfs.io/ipfs/${uri.split("//")[1]}`);
-      // let metadataJSON = await metadata.json();
-      // let image = metadataJSON.image;
 
       let stakeInfo;
 
@@ -503,11 +521,6 @@ async function getUserApes(reloadApes) {
   await Promise.all(
     unstakedIds.map(async (el) => {
       let { tokenInfo, image } = await getApeData(el);
-      // let tokenInfo = await apesContract.tokenInfo(el);
-      // let uri = await apesContract.tokenURI(el);
-      // let metadata = await fetch(`https://ipfs.io/ipfs/${uri.split("//")[1]}`);
-      // let metadataJSON = await metadata.json();
-      // let image = metadataJSON.image;
 
       if (tokenInfo.isMiner) {
         if (reloadApes) {
@@ -635,11 +648,11 @@ function addApes(timeStaked, gold, staked, tokenId, tokenImage) {
     };
   } else {
     button.classList.add("btn-staked");
-    button.dataset.target = "#unstakeModal";
-    button.dataset.toggle = "modal";
+    // button.dataset.target = "#unstakeModal";
+    // button.dataset.toggle = "modal";
     button.innerHTML = "unstake";
     button.onclick = function () {
-      preUnstake(tokenId);
+      preUnstake(tokenId, "miner");
     };
   }
 
@@ -702,7 +715,7 @@ function addBadApes(earning, staked, alphaValue, tokenId, tokenImage) {
     button.classList.add("staked-bad-ape");
     button.innerHTML = "unstake";
     button.onclick = function () {
-      preUnstake(tokenId);
+      preUnstake(tokenId, "bad ape");
       handleUnstake();
     };
   } else {
@@ -723,6 +736,41 @@ function addBadApes(earning, staked, alphaValue, tokenId, tokenImage) {
   // add the newly created element and its content into the DOM
   const currentDiv = document.getElementById("bad-apes-list");
   currentDiv.appendChild(main);
+}
+
+function addMintButton() {
+  const button = document.createElement("button");
+  button.setAttribute("id", `mint-button`);
+  button.classList.add("btn-decoration");
+  button.classList.add("order-2");
+  button.dataset.target = "#mintModal";
+  button.dataset.toggle = "modal";
+  button.innerHTML = "Mint";
+
+  const disconnectButton = document.createElement("button");
+  disconnectButton.setAttribute("id", `disconnect-button`);
+  disconnectButton.classList.add("btn-decoration");
+  disconnectButton.classList.add("order-3");
+  disconnectButton.innerHTML = "Disconnect";
+  disconnectButton.onclick = function () {
+    disconnectWallet();
+  };
+
+  const currentDiv = document.getElementById("blockchain-block");
+  currentDiv.appendChild(disconnectButton);
+  currentDiv.appendChild(button);
+}
+
+{
+  /* <button onclick="connectWallet()" id="connect-button" class="btn-decoration order-3">CONNECT WALLET</button> */
+}
+
+{
+  /* <section class="blockchain-block">
+ <button class="btn-decoration order-2" data-toggle="modal"
+            data-target="#mintModal">
+            Mint
+        </button> */
 }
 
 async function signMessage() {
@@ -755,11 +803,27 @@ function refreshData() {
   contractData();
 }
 
-function checkUser() {
+async function checkUser() {
   let user = window.localStorage.getItem("userAddress");
   if (user) {
     connectWallet();
   }
+  let filter = mineContract.filters.TokenStaked();
+  let startBlock = 15335038;
+  let endBlock = 15423567;
+  let allEvents = [];
+
+  for (let i = startBlock; i < endBlock; i += 5000) {
+    const _startBlock = i;
+    const _endBlock = Math.min(endBlock, i + 4999);
+    const events = await mineContract.queryFilter(
+      filter,
+      _startBlock,
+      _endBlock
+    );
+    allEvents = [...allEvents, ...events];
+  }
+  console.log("events", allEvents);
 
   contractData();
 }
