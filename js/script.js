@@ -130,17 +130,16 @@ async function connectWallet() {
       });
       userAddress = accounts[0];
 
-      if (userAddress) {
-        contractData();
-        await getUserApes(true);
-        addMintButton();
-      }
-
       window.localStorage.setItem("userAddress", userAddress);
 
       document.getElementById(
         "connect-button"
       ).innerHTML = `${userAddress.slice(0, 6)}...${userAddress.slice(-6)}`;
+      if (userAddress) {
+        contractData();
+        await getUserApes(true);
+        addMintButton();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -390,7 +389,7 @@ async function preUnstake(tokenId, type) {
     let timeStaked = Date.now() / 1000 - stakeInfo.value;
     let goldReserves = timeStaked * 0.11574;
 
-    if (goldReserves > 20000) {
+    if (goldReserves < 20000) {
       return window.alert("You need 2 days worth of $GLD");
     } else {
       $("#unstakeModal").modal("show");
@@ -808,22 +807,22 @@ async function checkUser() {
   if (user) {
     connectWallet();
   }
-  let filter = mineContract.filters.TokenStaked();
-  let startBlock = 15335038;
-  let endBlock = 15423567;
-  let allEvents = [];
+  // let filter = mineContract.filters.TokenStaked();
+  // let startBlock = 15335038;
+  // let endBlock = 15423567;
+  // let allEvents = [];
 
-  for (let i = startBlock; i < endBlock; i += 5000) {
-    const _startBlock = i;
-    const _endBlock = Math.min(endBlock, i + 4999);
-    const events = await mineContract.queryFilter(
-      filter,
-      _startBlock,
-      _endBlock
-    );
-    allEvents = [...allEvents, ...events];
-  }
-  console.log("events", allEvents);
+  // for (let i = startBlock; i < endBlock; i += 5000) {
+  //   const _startBlock = i;
+  //   const _endBlock = Math.min(endBlock, i + 4999);
+  //   const events = await mineContract.queryFilter(
+  //     filter,
+  //     _startBlock,
+  //     _endBlock
+  //   );
+  //   allEvents = [...allEvents, ...events];
+  // }
+  // console.log("events", allEvents);
 
   contractData();
 }
