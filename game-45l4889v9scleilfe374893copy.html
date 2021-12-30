@@ -20,22 +20,8 @@
 
 
 
-    <section class="top-panel">
+    <section class="top-panel">        
 
-        
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="toast-header">
-        <img src="..." class="rounded me-2" alt="...">
-        <strong class="me-auto">Bootstrap</strong>
-        <small>11 mins ago</small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-      <div class="toast-body">
-        Hello, world! This is a toast message.
-      </div>
-    </div>
-  </div>
 
         <img src="./svg/logo-ba.svg" alt="" class="top-panel-logo">
         <ul class="top-panel-cards-list col">
@@ -106,7 +92,7 @@
                     <img src="./img/tp-41.png" alt="monke" class="tp-card-img">
                 </div>
                 <div class="tp-card-description">
-                    <h3 class="tp-card-title">MINED GOLD</h3>
+                    <h3 class="tp-card-title">MINED $GLD</h3>
                     <p id="claimed-gold" class="tp-card-text">0</p>
                 </div>
             </li>
@@ -141,7 +127,7 @@
 
         <img src="./img/menu-sm-bg.png" alt="background image" class="panel-sm-bg-img">
         <ul class="panel-sm-list col" data-toggle="modal" data-target="#topNavModal">
-            <li class="panel-sm-item">$gold: <span id="user-gold-balance-mobile">0</span></li>
+            <li class="panel-sm-item">$gld: <span id="user-gold-balance-mobile">0</span></li>
             <li class="panel-sm-item">nobles:<span>0</span></li>
             <li class="panel-sm-item">land:<span>0</span></li>
             <li class="panel-sm-item">$BAYC <span id="user-bayc-balance-mobile">0</span></li>
@@ -213,7 +199,7 @@
             <ul class="wallet-list">
                 <li class="wallet-item">land: <span>0</span></li>
                 <li class="wallet-item">nobles: <span>0</span></li>
-                <li class="wallet-item">$gold: <span id="user-gold-balance">0</span></li>
+                <li class="wallet-item">$gld: <span id="user-gold-balance">0</span></li>
                 <li class="wallet-item">$bayc: <span id="user-bayc-balance">0</span></li>
             </ul>
         </div>
@@ -225,7 +211,7 @@
         <div class="status-bord collapse show" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="status-bord-info">
                 <div class="status-description-block">
-                    <div class="status-title">TOTAL MINED GOLD:</div>
+                    <div class="status-title">TOTAL MINED $GLD:</div>
                     <div id="user-gold-mined" class="status-count">0</div>
                 </div>
                 <div class="status-description-block">
@@ -236,7 +222,7 @@
                     <div class="status-title">CAN CLAIM</div>
                     <div class="status-count">0</div>
                 </div>
-                <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
+               
                 <button onclick="setBackClaimButton()" class="btn-decoration" data-toggle="modal" data-target="#claimModal">CLAIM</button>
             </div>
             <div class="container-status-bord-carousel">
@@ -301,37 +287,37 @@
                             <td class="leaderboard-text">1</td>
                             <td class="leaderboard-text">0XIGHU8CCS</td>
                             <td class="leaderboard-text">12 APES</td>
-                            <td class="leaderboard-text">1340K GOLD</td>
+                            <td class="leaderboard-text">1340K $GLD</td>
                         </tr>
                         <tr>
                             <td class="leaderboard-text">2</td>
                             <td class="leaderboard-text">0XC89H45x83</td>
                             <td class="leaderboard-text">11 APES</td>
-                            <td class="leaderboard-text">439K GOLD</td>
+                            <td class="leaderboard-text">439K $GLD</td>
                         </tr>
                         <tr>
                             <td class="leaderboard-text">3</td>
                             <td class="leaderboard-text">0XC12J24O34</td>
                             <td class="leaderboard-text">11 APES</td>
-                            <td class="leaderboard-text">321K GOLD</td>
+                            <td class="leaderboard-text">321K $GLD</td>
                         </tr>
                         <tr>
                             <td class="leaderboard-text">4</td>
                             <td class="leaderboard-text">0XC12Yi90L56</td>
                             <td class="leaderboard-text">10 APES</td>
-                            <td class="leaderboard-text">280K GOLD</td>
+                            <td class="leaderboard-text">280K $GLD</td>
                         </tr>
                         <tr>
                             <td class="leaderboard-text">5</td>
                             <td class="leaderboard-text">0XC12J24O34</td>
                             <td class="leaderboard-text">9 APES</td>
-                            <td class="leaderboard-text">120K GOLD</td>
+                            <td class="leaderboard-text">120K $GLD</td>
                         </tr>
                         <tr>
                             <td class="leaderboard-text">6</td>
                             <td class="leaderboard-text">0XC89H45x83</td>
                             <td class="leaderboard-text">9 APES</td>
-                            <td class="leaderboard-text">90K GOLD</td>
+                            <td class="leaderboard-text">90K $GLD</td>
                         </tr>
                     </table>
                 </div>
@@ -370,7 +356,7 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modale-change-noble">
-                <h4 class="modal-title">20,000 GOLD</h4>
+                <h4 class="modal-title">20,000 $GLD</h4>
                 <p class="modal-description">You can Mint a new ape</p>
                 <div class="icon">
                     <img src="./img/tp-1.png" alt="">
@@ -445,7 +431,7 @@
 
                 <h4 class="modal-title">Unstake your ape</h4>
 
-                <p class="modal-description mb-5">There is a 50% chance that you loose your gold to the bad apes. You
+                <p class="modal-description mb-5">There is a 50% chance that you loose your gld to the bad apes. You
                     will not loose your ape.</p>
                 <p class="modal-description">Do you want to continue?</p>
                 <div class="btn-blok">
@@ -463,7 +449,7 @@
         <div class="modal-dialog modal-dialog-centered max-w-620" role="document">
             <div class="modal-content modal-claim">
 
-                <h4 class="modal-title">Claim Gold</h4>
+                <h4 class="modal-title">Claim $Gld</h4>
 
                 <div class="count-block ">
                     <div class="bounty-count">20% Bounty</div>
@@ -474,7 +460,7 @@
                     <div id="user-gold-claimable" class="gold-count">0</div>
                 </div>
                 <button type="button" class="btn-decoration" data-dismiss="modal" id="claim-gold-button" onclick="claimGold()">Claim
-                    Gold</button>
+                    $Gld</button>
                 <button type="button" class="btn-x" data-dismiss="modal"><img src="./img/x.svg" alt=""></button>
 
             </div>
@@ -573,7 +559,7 @@
                             <img src="./img/tp-41.png" alt="monke" class="tp-card-img">
                         </div>
                         <div class="tp-card-description">
-                            <h3 class="tp-card-title">CLAIMED GOLD</h3>
+                            <h3 class="tp-card-title">CLAIMED $GLD</h3>
                             <p id="claimed-gold-mobile" class="tp-card-text">0</p>
                         </div>
                     </li>
