@@ -430,7 +430,7 @@ async function claimGold() {
       userApes.staked,
       false,
       {
-        gasLimit: 100000 * userApes.staked.length,
+        gasLimit: 150000 * userApes.staked.length,
       }
     );
     console.log(result);
