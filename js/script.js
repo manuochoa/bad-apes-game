@@ -103,18 +103,20 @@ let BAYCbalance;
 let provider = new ethers.providers.Web3Provider(window.ethereum);
 let signer = provider.getSigner(0);
 
-let apesAddress = "0x3e4ab707a3608713f7bC53a629BE3BEf9Ee5bA02";
-// let apesAddress = "0xde9304cC3c826D9f485e76588ebD8bd66e46034a";
-let mineAddress = "0x9bA77F6043f1a74af8C0598782F7C28aFA42286F";
-// let mineAddress = "0x2c84FAE9F5D069bd62DBdA51b385Bb348D8c9A20";
+let apesAddress = "0xb60eb671351eC39971f16c173fA8d52787Aeadd7";
+let mineAddress = "0xdb1C1A9989C4A68874C460C0AEcAB4bAe01980C7";
+// let apesAddress = "0x3e4ab707a3608713f7bC53a629BE3BEf9Ee5bA02";
+// let mineAddress = "0x9bA77F6043f1a74af8C0598782F7C28aFA42286F";
 
 let goldContract = new ethers.Contract(
-  "0x48197AFc712c337B91F4FDb15aF0433955E14f7C",
+  "0xc18196D7aE0A4Bf3d02B4Ae38544A31e9A5496B8",
+  // "0x48197AFc712c337B91F4FDb15aF0433955E14f7C",
   GLDabi,
   signer
 );
 let BAYCContract = new ethers.Contract(
-  "0xc59fc09706206C993Ba8C13e59D6ab7Ef7423144",
+  "0xC4F5424eF52499fa496a07f3fE9DaAb88553D4C3",
+  // "0xc59fc09706206C993Ba8C13e59D6ab7Ef7423144",
   GLDabi,
   signer
 );
@@ -131,6 +133,25 @@ async function connectWallet() {
       userAddress = accounts[0];
 
       window.localStorage.setItem("userAddress", userAddress);
+
+      const chainId = await window.ethereum.request({
+        method: "eth_chainId",
+      });
+
+      if (chainId !== "0x38") {
+        await window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: "0x38" }],
+        });
+      }
+
+      window.ethereum.on("accountsChanged", function (accounts) {
+        setUserAddress(accounts[0]);
+      });
+
+      window.ethereum.on("chainChanged", (_chainId) =>
+        window.location.reload()
+      );
 
       document.getElementById(
         "connect-button"
@@ -170,6 +191,7 @@ async function mintOneApe() {
 
   try {
     let { messageHash, signature } = await signMessage();
+    console.log({ messageHash, signature });
     title.innerHTML = "Sign Transaction...";
 
     let result = await apesContract.regularMint(true, messageHash, signature, {
@@ -274,19 +296,20 @@ async function newApeImage(receipt) {
 
 async function getApeData(tokenId) {
   let tokenInfo = await apesContract.tokenInfo(tokenId);
-  let uri = await apesContract.tokenURI(tokenId);
-  let metadata = await fetch(`https://ipfs.io/ipfs/${uri.split("//")[1]}`);
-  let metadataJSON = await metadata.json();
-  let image = metadataJSON.image;
-  let newImage = `https://ipfs.io/ipfs${image.split("ipfs")[2]}`;
+  // let uri = await apesContract.tokenURI(tokenId);
+  // let metadata = await fetch(`https://ipfs.io/ipfs/${uri.split("//")[1]}`);
+  // let metadataJSON = await metadata.json();
+  // let image = metadataJSON.image;
+  // let newImage = `https://ipfs.io/ipfs${image.split("ipfs")[2]}`;
+  let newImage = "./img/Placeholder.png";
   return { tokenInfo, image: newImage };
 }
 
 async function checkAllowance() {
   let result = await BAYCContract.allowance(userAddress, apesAddress);
-  console.log(result > 0);
+  console.log(result > "999999999999999999999999999999999999999999999");
 
-  return result > 0;
+  return result > "999999999999999999999999999999999999999999999";
 }
 
 async function increaseAllowance() {
@@ -295,7 +318,7 @@ async function increaseAllowance() {
     console.log("allowance");
     let result = await BAYCContract.approve(
       apesAddress,
-      "9999999999999999999999999999"
+      "999999999999999999999999999999999999999999999999999999"
     );
 
     const receipt = await result.wait();
@@ -384,19 +407,17 @@ async function handleUnstake() {
 }
 
 async function preUnstake(tokenId, type) {
-  $(".toast").toast();
-  $("#element").toast("show");
-  // if (type === "miner") {
-  //   let stakeInfo = await mineContract.mine(tokenId);
-  //   let timeStaked = Date.now() / 1000 - stakeInfo.value;
-  //   let goldReserves = timeStaked * 0.11574;
+  if (type === "miner") {
+    let stakeInfo = await mineContract.mine(tokenId);
+    let timeStaked = Date.now() / 1000 - stakeInfo.value;
+    let goldReserves = timeStaked * 0.11574;
 
-  //   if (goldReserves < 20000) {
-  //     return window.alert("You need 2 days worth of $GLD");
-  //   } else {
-  //     $("#unstakeModal").modal("show");
-  //   }
-  // }
+    if (goldReserves < 20000) {
+      return window.alert("You need 2 days worth of $GLD");
+    } else {
+      $("#unstakeModal").modal("show");
+    }
+  }
   console.log(tokenId.toString());
   selectedToken = tokenId;
 }
@@ -439,7 +460,9 @@ function setBackClaimButton() {
 async function contractData() {
   let apesContract = new ethers.Contract(apesAddress, ApesABI, provider);
   let mineContract = new ethers.Contract(mineAddress, MineABI, provider);
-  BAYCprice = ((await apesContract.BAYCcost()) / 10 ** 18).toFixed(0);
+  BAYCprice = ((await apesContract.BAYCcost()) / 10 ** 18)
+    .toFixed(0)
+    .toLocaleString();
   let minted = (await apesContract.totalSupply()).toString();
   let badApes = (await apesContract.badApes()).toString();
   let minersStaked = (await mineContract.totalApesMining()).toString();
@@ -454,7 +477,12 @@ async function contractData() {
   document.getElementById("staked-bad-apes").innerHTML = badStaked;
   document.getElementById("claimed-gold-mobile").innerHTML = goldMinted;
   document.getElementById("claimed-gold").innerHTML = goldMinted;
-  document.getElementById("mint-bayc-button").innerHTML = `${BAYCprice} BAYC`;
+  document.getElementById(
+    "mint-bayc-button"
+  ).innerHTML = `${BAYCprice.toString().replace(
+    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+    ","
+  )} BAYC`;
 }
 
 async function getUserApes(reloadApes) {
@@ -606,7 +634,12 @@ function loading(status) {
   } else if (status === "end") {
     document.getElementById("mint-button").innerHTML = "0.6942 BNB";
     document.getElementById("mint-button").disabled = false;
-    document.getElementById("mint-bayc-button").innerHTML = `${BAYCprice} BAYC`;
+    document.getElementById(
+      "mint-bayc-button"
+    ).innerHTML = `${BAYCprice.toString().replace(
+      /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+      ","
+    )} BAYC`;
     document.getElementById("mint-bayc-button").disabled = false;
   }
 }

@@ -15295,3 +15295,8 @@ select {
   background: #828282;
   border-radius: 4px;
 }
+
+.mint-box {
+  display: flex;
+  flex-direction: column;
+}
