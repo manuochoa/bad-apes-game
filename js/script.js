@@ -124,6 +124,7 @@ let apesContract = new ethers.Contract(apesAddress, ApesABI, signer);
 let mineContract = new ethers.Contract(mineAddress, MineABI, signer);
 
 async function connectWallet() {
+  console.log(minersMetadata);
   if (userAddress === "") {
     console.log("hola");
     try {
@@ -217,9 +218,9 @@ async function mintOneApe() {
 
 async function mintWithBAYC() {
   console.log(BAYCprice, BAYCbalance / 10 ** 18);
-  if (BAYCprice > BAYCbalance / 10 ** 18) {
-    return window.alert("Not enough BAYC to buy");
-  }
+  // if (BAYCprice > BAYCbalance / 10 ** 18) {
+  //   return window.alert("Not enough BAYC to buy");
+  // }
   loading("start");
   const mintImage = document.getElementById("mint-img");
   const title = document.getElementById("minting-title");
@@ -317,9 +318,9 @@ async function getApeData(tokenId) {
 
 async function checkAllowance() {
   let result = await BAYCContract.allowance(userAddress, apesAddress);
-  console.log(result > "999999999999999999999999999999999999999999999");
+  console.log(result > BAYCprice / 10 ** 18);
 
-  return result > "999999999999999999999999999999999999999999999";
+  return result > BAYCprice / 10 ** 18;
 }
 
 async function increaseAllowance() {
@@ -328,7 +329,7 @@ async function increaseAllowance() {
     console.log("allowance");
     let result = await BAYCContract.approve(
       apesAddress,
-      "999999999999999999999999999999999999999999999999999999"
+      "115792089237316195423570985008687907853269984665640564039457584007913129639935"
     );
 
     const receipt = await result.wait();
