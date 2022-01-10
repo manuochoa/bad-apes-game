@@ -296,13 +296,23 @@ async function newApeImage(receipt) {
 
 async function getApeData(tokenId) {
   let tokenInfo = await apesContract.tokenInfo(tokenId);
-  // let uri = await apesContract.tokenURI(tokenId);
-  // let metadata = await fetch(`https://ipfs.io/ipfs/${uri.split("//")[1]}`);
-  // let metadataJSON = await metadata.json();
-  // let image = metadataJSON.image;
-  // let newImage = `https://ipfs.io/ipfs${image.split("ipfs")[2]}`;
+  let image;
+  if (tokenInfo.isMiner) {
+    image = minersMetadata[tokenId - 1].image;
+  } else {
+    let alpha = tokenInfo.strengthIndex;
+    if (Number(alpha) === 0) {
+      image = sigmasMetadata[tokenId - 1].image;
+    } else if (Number(alpha) === 1) {
+      image = alphasMetadata[tokenId - 1].image;
+    } else if (Number(alpha) === 2) {
+      image = zetaMetadata[tokenId - 1].image;
+    } else if (Number(alpha) === 3) {
+      image = betasMetadata[tokenId - 1].image;
+    }
+  }
   let newImage = "./img/Placeholder.png";
-  return { tokenInfo, image: newImage };
+  return { tokenInfo, image };
 }
 
 async function checkAllowance() {
